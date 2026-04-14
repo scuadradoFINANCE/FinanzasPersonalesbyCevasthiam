@@ -3,113 +3,51 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>FinTrack — Mis Finanzas</title>
+<title>FinTrack</title>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        "background": "#f8f9fa",
-        "on-background": "#191c1d",
-        "surface-container-highest": "#e1e3e4",
-        "on-tertiary-fixed": "#161d1f",
-        "on-secondary": "#ffffff",
-        "tertiary-fixed": "#dde4e6",
-        "outline-variant": "#c9c4d8",
-        "on-tertiary": "#ffffff",
-        "on-secondary-fixed": "#00210c",
-        "secondary-container": "#7bf8a1",
-        "primary": "#5d3ade",
-        "inverse-primary": "#cabeff",
-        "on-primary": "#ffffff",
-        "inverse-surface": "#2e3132",
-        "primary-fixed": "#e6deff",
-        "on-error": "#ffffff",
-        "tertiary-container": "#6f7678",
-        "surface-container-lowest": "#ffffff",
-        "surface-variant": "#e1e3e4",
-        "secondary": "#006d37",
-        "error-container": "#ffdad6",
-        "surface": "#f8f9fa",
-        "secondary-fixed-dim": "#61de8a",
-        "on-surface-variant": "#484555",
-        "tertiary-fixed-dim": "#c1c8ca",
-        "primary-fixed-dim": "#cabeff",
-        "primary-container": "#7658f8",
-        "surface-container": "#edeeef",
-        "on-surface": "#191c1d",
-        "on-error-container": "#93000a",
-        "surface-tint": "#603de0",
-        "surface-bright": "#f8f9fa",
-        "outline": "#797587",
-        "surface-dim": "#d9dadb",
-        "surface-container-high": "#e7e8e9",
-        "secondary-fixed": "#7efba4",
-        "surface-container-low": "#f3f4f5",
-        "on-secondary-fixed-variant": "#005228",
-        "on-primary-container": "#fffbff",
-        "on-tertiary-container": "#f9fdff",
-        "on-secondary-container": "#007239",
-        "tertiary": "#565d5f",
-        "on-tertiary-fixed-variant": "#41484a",
-        "on-primary-fixed": "#1c0062",
-        "inverse-on-surface": "#f0f1f2",
-        "on-primary-fixed-variant": "#4719c9",
-        "error": "#ba1a1a",
-      },
-      borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-      fontFamily: { "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"] }
-    }
-  }
-}
+tailwind.config={theme:{extend:{colors:{"background":"#f8f9fa","on-background":"#191c1d","surface-container-highest":"#e1e3e4","on-tertiary-fixed":"#161d1f","on-secondary":"#ffffff","tertiary-fixed":"#dde4e6","outline-variant":"#c9c4d8","on-tertiary":"#ffffff","on-secondary-fixed":"#00210c","secondary-container":"#7bf8a1","primary":"#5d3ade","inverse-primary":"#cabeff","on-primary":"#ffffff","inverse-surface":"#2e3132","primary-fixed":"#e6deff","on-error":"#ffffff","tertiary-container":"#6f7678","surface-container-lowest":"#ffffff","surface-variant":"#e1e3e4","secondary":"#006d37","error-container":"#ffdad6","surface":"#f8f9fa","secondary-fixed-dim":"#61de8a","on-surface-variant":"#484555","tertiary-fixed-dim":"#c1c8ca","primary-fixed-dim":"#cabeff","primary-container":"#7658f8","surface-container":"#edeeef","on-surface":"#191c1d","on-error-container":"#93000a","surface-tint":"#603de0","surface-bright":"#f8f9fa","outline":"#797587","surface-dim":"#d9dadb","surface-container-high":"#e7e8e9","secondary-fixed":"#7efba4","surface-container-low":"#f3f4f5","on-secondary-fixed-variant":"#005228","on-primary-container":"#fffbff","on-tertiary-container":"#f9fdff","on-secondary-container":"#007239","tertiary":"#565d5f","on-tertiary-fixed-variant":"#41484a","on-primary-fixed":"#1c0062","inverse-on-surface":"#f0f1f2","on-primary-fixed-variant":"#4719c9","error":"#ba1a1a"},borderRadius:{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},fontFamily:{"headline":["Manrope"],"body":["Inter"],"label":["Inter"]}}}}
 </script>
 <style>
-  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-  .ms-filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-  .ambient-shadow { box-shadow: 0px 4px 20px rgba(25,28,29,0.04), 0px 10px 40px rgba(96,61,224,0.06); }
-  .glass-violet { background: rgba(93,58,222,0.08); backdrop-filter: blur(20px); }
-  body { font-family: 'Inter', sans-serif; }
-  .font-headline { font-family: 'Manrope', sans-serif; }
-  /* Modal */
-  .modal-overlay { display:none; position:fixed; inset:0; background:rgba(25,28,29,0.4); z-index:100; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
-  .modal-overlay.open { display:flex; }
-  /* Toast */
-  .toast { position:fixed; bottom:24px; right:24px; z-index:200; transform:translateY(80px); opacity:0; transition:all .3s; }
-  .toast.show { transform:translateY(0); opacity:1; }
-  /* Sidebar active */
-  .nav-item.active { background:rgba(93,58,222,0.08); color:#5d3ade; font-weight:700; border-left:3px solid #5d3ade; }
-  .nav-item { border-left:3px solid transparent; transition:all .15s; }
-  /* Page */
-  .page { display:none; }
-  .page.active { display:block; }
-  /* Table row */
-  tbody tr { transition:background .1s; }
-  /* Input focus */
-  input:focus, select:focus, textarea:focus { outline:none; border-color:#5d3ade !important; box-shadow:0 0 0 3px rgba(93,58,222,0.12); }
-  /* Pulse */
-  .pulse { animation:pulse 1.4s ease-in-out infinite; }
-  @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
-  /* Scrollbar */
-  ::-webkit-scrollbar { width:6px; height:6px; }
-  ::-webkit-scrollbar-track { background:transparent; }
-  ::-webkit-scrollbar-thumb { background:#c9c4d8; border-radius:99px; }
+  .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+  .ms-filled{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24}
+  .ambient-shadow{box-shadow:0px 4px 20px rgba(25,28,29,0.04),0px 10px 40px rgba(96,61,224,0.06)}
+  .glass-violet{background:rgba(93,58,222,0.08);backdrop-filter:blur(20px)}
+  body{font-family:'Inter',sans-serif}
+  .font-headline{font-family:'Manrope',sans-serif}
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(25,28,29,0.45);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+  .modal-overlay.open{display:flex}
+  .toast{position:fixed;bottom:24px;right:24px;z-index:200;transform:translateY(80px);opacity:0;transition:all .3s}
+  .toast.show{transform:translateY(0);opacity:1}
+  .nav-item.active{background:rgba(93,58,222,0.08);color:#5d3ade;font-weight:700;border-left:3px solid #5d3ade}
+  .nav-item{border-left:3px solid transparent;transition:all .15s}
+  .page{display:none}
+  .page.active{display:block}
+  input:focus,select:focus{outline:none;border-color:#5d3ade!important;box-shadow:0 0 0 3px rgba(93,58,222,0.12)}
+  .pulse{animation:pulse 1.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  ::-webkit-scrollbar{width:5px;height:5px}
+  ::-webkit-scrollbar-thumb{background:#c9c4d8;border-radius:99px}
+  /* Spinner */
+  .spin{animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  /* Status dot */
+  .status-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+  .status-ok{background:#006d37}
+  .status-err{background:#ba1a1a}
+  .status-loading{background:#f0a020}
 </style>
 </head>
 <body class="bg-background text-on-background antialiased">
 
-<!-- ══════════════════════════════════════════════
-     TOP APP BAR
-══════════════════════════════════════════════ -->
+<!-- TOP BAR -->
 <header class="bg-background sticky top-0 z-50 border-b border-outline-variant/20">
-  <div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
-    <div class="flex items-center gap-4">
-      <button class="md:hidden hover:opacity-80 active:scale-95 transition-all" onclick="toggleSidebar()">
-        <span class="material-symbols-outlined text-primary">menu</span>
-      </button>
+  <div class="flex justify-between items-center w-full px-6 py-3.5 max-w-7xl mx-auto">
+    <div class="flex items-center gap-3">
+      <button class="md:hidden" onclick="toggleSidebar()"><span class="material-symbols-outlined text-primary">menu</span></button>
       <div class="flex items-center gap-2">
         <div class="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
           <span class="material-symbols-outlined ms-filled text-white text-[18px]">show_chart</span>
@@ -118,19 +56,23 @@ tailwind.config = {
       </div>
     </div>
     <nav class="hidden md:flex gap-8">
-      <a class="text-primary font-bold border-b-2 border-primary py-1 transition-opacity cursor-pointer" onclick="go('dashboard')">Portfolio</a>
-      <a class="text-on-surface-variant font-medium hover:opacity-80 transition-opacity cursor-pointer" onclick="go('activos')">Activos</a>
-      <a class="text-on-surface-variant font-medium hover:opacity-80 transition-opacity cursor-pointer" onclick="go('snapshots')">Historial</a>
-      <a class="text-on-surface-variant font-medium hover:opacity-80 transition-opacity cursor-pointer" onclick="go('config')">Config</a>
+      <a onclick="go('dashboard')" class="text-primary font-bold border-b-2 border-primary py-1 cursor-pointer transition-opacity">Portfolio</a>
+      <a onclick="go('activos')"   class="text-on-surface-variant font-medium hover:opacity-80 cursor-pointer">Activos</a>
+      <a onclick="go('mercado')"   class="text-on-surface-variant font-medium hover:opacity-80 cursor-pointer">Mercado</a>
+      <a onclick="go('snapshots')" class="text-on-surface-variant font-medium hover:opacity-80 cursor-pointer">Historial</a>
+      <a onclick="go('config')"    class="text-on-surface-variant font-medium hover:opacity-80 cursor-pointer">Config</a>
     </nav>
     <div class="flex items-center gap-3">
       <div class="glass-violet px-3 py-1.5 rounded-full border border-primary/10 hidden sm:flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-secondary animate-pulse inline-block"></span>
-        <span class="text-primary font-bold text-xs tracking-tight" id="header-blue">Blue: <span class="pulse">···</span></span>
+        <span class="status-dot status-loading" id="hdr-dot"></span>
+        <span class="text-primary font-bold text-xs tracking-tight" id="hdr-blue">Blue: <span class="pulse">···</span></span>
       </div>
       <div class="glass-violet px-3 py-1.5 rounded-full border border-primary/10 hidden md:flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
-        <span class="text-primary font-bold text-xs tracking-tight" id="header-mep">MEP: <span class="pulse">···</span></span>
+        <span class="text-primary font-bold text-xs" id="hdr-mep">MEP: <span class="pulse">···</span></span>
+      </div>
+      <div class="flex items-center gap-1.5 text-xs text-on-surface-variant" id="sheets-status">
+        <span class="status-dot status-loading" id="sheets-dot"></span>
+        <span id="sheets-label">Sheets</span>
       </div>
       <button onclick="openSnapModal()" class="hidden sm:flex items-center gap-1 bg-primary text-white text-xs font-bold px-3 py-2 rounded-full hover:opacity-90 active:scale-95 transition-all">
         <span class="material-symbols-outlined text-[16px]">add</span> Snapshot
@@ -141,391 +83,289 @@ tailwind.config = {
 
 <div class="flex max-w-7xl mx-auto">
 
-<!-- ══════════════════════════════════════════════
-     SIDEBAR (desktop)
-══════════════════════════════════════════════ -->
-<aside id="sidebar" class="hidden md:flex flex-col w-56 shrink-0 py-6 pr-4 sticky top-[73px] h-[calc(100vh-73px)] overflow-y-auto">
+<!-- SIDEBAR -->
+<aside id="sidebar" class="hidden md:flex flex-col w-56 shrink-0 py-5 pr-4 sticky top-[61px] h-[calc(100vh-61px)] overflow-y-auto">
   <nav class="space-y-1 flex-1">
-    <div class="nav-item active flex items-center gap-3 px-4 py-3 rounded-r-xl cursor-pointer text-sm" onclick="go('dashboard')">
-      <span class="material-symbols-outlined text-[20px]">dashboard</span> Dashboard
-    </div>
-    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-r-xl cursor-pointer text-sm text-on-surface-variant hover:bg-surface-container" onclick="go('activos')">
-      <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span> Activos
-    </div>
-    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-r-xl cursor-pointer text-sm text-on-surface-variant hover:bg-surface-container" onclick="go('snapshots')">
-      <span class="material-symbols-outlined text-[20px]">history</span> Historial
-    </div>
-    <div class="nav-item flex items-center gap-3 px-4 py-3 rounded-r-xl cursor-pointer text-sm text-on-surface-variant hover:bg-surface-container" onclick="go('config')">
-      <span class="material-symbols-outlined text-[20px]">settings</span> Configuración
-    </div>
+    <div class="nav-item active flex items-center gap-3 px-4 py-2.5 rounded-r-xl cursor-pointer text-sm" onclick="go('dashboard')"><span class="material-symbols-outlined text-[20px]">dashboard</span>Dashboard</div>
+    <div class="nav-item flex items-center gap-3 px-4 py-2.5 rounded-r-xl cursor-pointer text-sm text-on-surface-variant hover:bg-surface-container" onclick="go('activos')"><span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>Activos</div>
+    <div class="nav-item flex items-center gap-3 px-4 py-2.5 rounded-r-xl cursor-pointer text-sm text-on-surface-variant hover:bg-surface-container" onclick="go('mercado')"><span class="material-symbols-outlined text-[20px]">query_stats</span>Mercado</div>
+    <div class="nav-item flex items-center gap-3 px-4 py-2.5 rounded-r-xl cursor-pointer text-sm text-on-surface-variant hover:bg-surface-container" onclick="go('snapshots')"><span class="material-symbols-outlined text-[20px]">history</span>Historial</div>
+    <div class="nav-item flex items-center gap-3 px-4 py-2.5 rounded-r-xl cursor-pointer text-sm text-on-surface-variant hover:bg-surface-container" onclick="go('config')"><span class="material-symbols-outlined text-[20px]">settings</span>Config</div>
   </nav>
-  <!-- Rates widget -->
   <div class="mt-auto bg-surface-container-lowest rounded-xl p-4 ambient-shadow">
     <p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-3">Cotizaciones</p>
-    <div class="space-y-2.5">
-      <div class="flex justify-between items-center">
-        <span class="flex items-center gap-1.5 text-xs text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-secondary inline-block"></span>Blue</span>
-        <span class="text-xs font-bold text-on-surface" id="sb-blue"><span class="pulse text-on-surface-variant">···</span></span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="flex items-center gap-1.5 text-xs text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span>MEP</span>
-        <span class="text-xs font-bold text-on-surface" id="sb-mep"><span class="pulse text-on-surface-variant">···</span></span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="flex items-center gap-1.5 text-xs text-on-surface-variant"><span class="w-2 h-2 rounded-full bg-tertiary inline-block"></span>CCL</span>
-        <span class="text-xs font-bold text-on-surface" id="sb-ccl"><span class="pulse text-on-surface-variant">···</span></span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="flex items-center gap-1.5 text-xs text-on-surface-variant"><span class="w-2 h-2 rounded-full" style="background:#7658f8"></span>Cripto</span>
-        <span class="text-xs font-bold text-on-surface" id="sb-cripto"><span class="pulse text-on-surface-variant">···</span></span>
-      </div>
+    <div class="space-y-2">
+      <div class="flex justify-between"><span class="text-xs text-on-surface-variant flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary inline-block"></span>Blue</span><span class="text-xs font-bold font-mono" id="sb-blue"><span class="pulse text-on-surface-variant">···</span></span></div>
+      <div class="flex justify-between"><span class="text-xs text-on-surface-variant flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span>MEP</span><span class="text-xs font-bold font-mono" id="sb-mep"><span class="pulse text-on-surface-variant">···</span></span></div>
+      <div class="flex justify-between"><span class="text-xs text-on-surface-variant flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-tertiary inline-block"></span>CCL</span><span class="text-xs font-bold font-mono" id="sb-ccl"><span class="pulse text-on-surface-variant">···</span></span></div>
+      <div class="flex justify-between"><span class="text-xs text-on-surface-variant flex items-center gap-1.5"><span class="w-2 h-2 rounded-full" style="background:#7658f8"></span>Cripto</span><span class="text-xs font-bold font-mono" id="sb-cripto"><span class="pulse text-on-surface-variant">···</span></span></div>
     </div>
   </div>
 </aside>
 
-<!-- ══════════════════════════════════════════════
-     MAIN CONTENT
-══════════════════════════════════════════════ -->
-<main class="flex-1 min-w-0 px-0 md:px-6 py-8">
+<main class="flex-1 min-w-0 px-0 md:px-6 py-7 pb-24 md:pb-7">
 
-  <!-- ─── DASHBOARD ─── -->
-  <div class="page active" id="page-dashboard">
-
-    <!-- Summary Cards -->
-    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8 px-4 md:px-0">
-      <div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow hover:scale-[1.02] transition-all duration-300">
-        <div class="flex justify-between items-start mb-3">
-          <div class="p-2 bg-primary-fixed rounded-lg"><span class="material-symbols-outlined text-primary text-[20px]">account_balance_wallet</span></div>
-          <span class="text-secondary font-bold text-xs flex items-center gap-0.5" id="m-chg-badge">—</span>
-        </div>
-        <p class="text-on-surface-variant text-[10px] font-bold uppercase tracking-wider mb-1">Total USD</p>
-        <p class="font-headline text-xl font-bold text-on-surface" id="m-total">$0</p>
-        <p class="text-xs text-on-surface-variant mt-1" id="m-total-ars">≈ ARS —</p>
-      </div>
-      <div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow hover:scale-[1.02] transition-all duration-300">
-        <div class="flex justify-between items-start mb-3">
-          <div class="p-2 bg-primary-fixed rounded-lg"><span class="material-symbols-outlined text-primary text-[20px]">currency_bitcoin</span></div>
-          <span class="text-primary font-bold text-xs" id="m-crypto-p">0%</span>
-        </div>
-        <p class="text-on-surface-variant text-[10px] font-bold uppercase tracking-wider mb-1">Cripto</p>
-        <p class="font-headline text-xl font-bold text-on-surface" id="m-crypto">$0</p>
-      </div>
-      <div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow hover:scale-[1.02] transition-all duration-300">
-        <div class="flex justify-between items-start mb-3">
-          <div class="p-2 bg-secondary-fixed rounded-lg"><span class="material-symbols-outlined text-secondary text-[20px]">savings</span></div>
-          <span class="text-secondary font-bold text-xs" id="m-fondos-p">0%</span>
-        </div>
-        <p class="text-on-surface-variant text-[10px] font-bold uppercase tracking-wider mb-1">Fondos</p>
-        <p class="font-headline text-xl font-bold text-on-surface" id="m-fondos">$0</p>
-      </div>
-      <div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow hover:scale-[1.02] transition-all duration-300">
-        <div class="flex justify-between items-start mb-3">
-          <div class="p-2 bg-tertiary-fixed rounded-lg"><span class="material-symbols-outlined text-tertiary text-[20px]">candlestick_chart</span></div>
-          <span class="text-tertiary font-bold text-xs" id="m-acc-p">0%</span>
-        </div>
-        <p class="text-on-surface-variant text-[10px] font-bold uppercase tracking-wider mb-1">Acciones</p>
-        <p class="font-headline text-xl font-bold text-on-surface" id="m-acc">$0</p>
-      </div>
-    </section>
-
-    <!-- Charts row -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 px-4 md:px-0">
-      <!-- Evolution chart -->
-      <div class="lg:col-span-2 bg-surface-container-lowest p-7 rounded-xl ambient-shadow">
-        <div class="flex justify-between items-center mb-6">
-          <div>
-            <h2 class="font-headline text-lg font-bold text-on-surface">Evolución del patrimonio</h2>
-            <p class="text-on-surface-variant text-xs">Últimos snapshots guardados</p>
-          </div>
-          <div class="flex gap-1.5" id="evol-tabs">
-            <button onclick="setEM('usd',this)" class="px-3 py-1 text-[11px] font-bold rounded-full bg-primary-container text-on-primary-container shadow-sm">USD</button>
-            <button onclick="setEM('blue',this)" class="px-3 py-1 text-[11px] font-bold rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-highest transition-colors">ARS Blue</button>
-            <button onclick="setEM('mep',this)" class="px-3 py-1 text-[11px] font-bold rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-highest transition-colors">ARS MEP</button>
-          </div>
-        </div>
-        <div class="relative h-[260px] w-full">
-          <canvas id="evolChart" role="img" aria-label="Evolución mensual patrimonio">Sin datos.</canvas>
-        </div>
-      </div>
-      <!-- Pie -->
-      <div class="bg-surface-container-lowest p-7 rounded-xl ambient-shadow">
-        <h2 class="font-headline text-lg font-bold text-on-surface mb-1">Distribución</h2>
-        <p class="text-on-surface-variant text-xs mb-5">Por categoría de activo</p>
-        <div class="relative w-44 h-44 mx-auto mb-5">
-          <canvas id="pieChart" role="img" aria-label="Distribución activos">Sin datos.</canvas>
-          <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <span class="font-headline text-2xl font-bold text-on-surface" id="pie-center-val">$0</span>
-            <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Total</span>
-          </div>
-        </div>
-        <ul class="space-y-3" id="pie-legend"></ul>
-      </div>
-    </section>
-
-    <!-- Assets table -->
-    <section class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden mx-4 md:mx-0">
-      <div class="px-7 py-5 border-b border-outline-variant/15 flex justify-between items-center">
-        <h2 class="font-headline text-lg font-bold text-on-surface">Activos activos</h2>
-        <button onclick="go('activos')" class="text-primary text-sm font-bold hover:underline">Ver todos →</button>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left">
-          <thead>
-            <tr class="bg-surface-container-low/50">
-              <th class="px-7 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Activo</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Tipo</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Plataforma</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Precio</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Total USD</th>
-              <th class="px-7 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">ARS</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-outline-variant/10" id="dash-tbody"></tbody>
-        </table>
-      </div>
-    </section>
-  </div>
-
-  <!-- ─── ACTIVOS ─── -->
-  <div class="page" id="page-activos">
-    <div class="flex justify-between items-center mb-7 px-4 md:px-0">
-      <div>
-        <h1 class="font-headline text-2xl font-bold text-on-surface">Mis Activos</h1>
-        <p class="text-on-surface-variant text-sm">Administrá tu cartera de inversiones</p>
-      </div>
-      <button onclick="openAddAsset()" class="flex items-center gap-2 bg-primary text-white font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-sm">
-        <span class="material-symbols-outlined text-[18px]">add</span> Agregar activo
-      </button>
+<!-- ── DASHBOARD ───────────────────────────────────────── -->
+<div class="page active" id="page-dashboard">
+  <section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6 px-4 md:px-0">
+    <div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow hover:scale-[1.02] transition-all duration-300">
+      <div class="flex justify-between items-start mb-3"><div class="p-2 bg-primary-fixed rounded-lg"><span class="material-symbols-outlined text-primary text-[20px]">account_balance_wallet</span></div><span class="font-bold text-xs flex items-center gap-0.5" id="m-chg-badge">—</span></div>
+      <p class="text-on-surface-variant text-[10px] font-bold uppercase tracking-wider mb-1">Total USD</p>
+      <p class="font-headline text-xl font-bold text-on-surface" id="m-total">$0</p>
+      <p class="text-xs text-on-surface-variant mt-1" id="m-total-ars">≈ ARS —</p>
     </div>
-    <div class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden mx-4 md:mx-0">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left">
-          <thead>
-            <tr class="bg-surface-container-low/50">
-              <th class="px-7 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Activo</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Tipo</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Plataforma</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Ref ARS</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Cantidad</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Precio USD</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Total USD</th>
-              <th class="px-4 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Total ARS</th>
-              <th class="px-7 py-4 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Acciones</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-outline-variant/10" id="act-tbody"></tbody>
-        </table>
+    <div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow hover:scale-[1.02] transition-all duration-300">
+      <div class="flex justify-between items-start mb-3"><div class="p-2 bg-primary-fixed rounded-lg"><span class="material-symbols-outlined text-primary text-[20px]">currency_bitcoin</span></div><span class="text-primary font-bold text-xs" id="m-crypto-p">0%</span></div>
+      <p class="text-on-surface-variant text-[10px] font-bold uppercase tracking-wider mb-1">Cripto</p>
+      <p class="font-headline text-xl font-bold text-on-surface" id="m-crypto">$0</p>
+    </div>
+    <div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow hover:scale-[1.02] transition-all duration-300">
+      <div class="flex justify-between items-start mb-3"><div class="p-2 bg-secondary-fixed rounded-lg"><span class="material-symbols-outlined text-secondary text-[20px]">savings</span></div><span class="text-secondary font-bold text-xs" id="m-fondos-p">0%</span></div>
+      <p class="text-on-surface-variant text-[10px] font-bold uppercase tracking-wider mb-1">Fondos</p>
+      <p class="font-headline text-xl font-bold text-on-surface" id="m-fondos">$0</p>
+    </div>
+    <div class="bg-surface-container-lowest p-5 rounded-xl ambient-shadow hover:scale-[1.02] transition-all duration-300">
+      <div class="flex justify-between items-start mb-3"><div class="p-2 bg-tertiary-fixed rounded-lg"><span class="material-symbols-outlined text-tertiary text-[20px]">candlestick_chart</span></div><span class="text-tertiary font-bold text-xs" id="m-acc-p">0%</span></div>
+      <p class="text-on-surface-variant text-[10px] font-bold uppercase tracking-wider mb-1">Acciones</p>
+      <p class="font-headline text-xl font-bold text-on-surface" id="m-acc">$0</p>
+    </div>
+  </section>
+  <section class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5 px-4 md:px-0">
+    <div class="lg:col-span-2 bg-surface-container-lowest p-6 rounded-xl ambient-shadow">
+      <div class="flex justify-between items-center mb-5">
+        <div><h2 class="font-headline text-lg font-bold text-on-surface">Evolución del patrimonio</h2><p class="text-on-surface-variant text-xs">Snapshots guardados</p></div>
+        <div class="flex gap-1.5" id="evol-tabs">
+          <button onclick="setEM('usd',this)" class="px-3 py-1 text-[11px] font-bold rounded-full bg-primary-container text-on-primary-container shadow-sm">USD</button>
+          <button onclick="setEM('blue',this)" class="px-3 py-1 text-[11px] font-bold rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-highest">ARS Blue</button>
+          <button onclick="setEM('mep',this)" class="px-3 py-1 text-[11px] font-bold rounded-full bg-surface-container text-on-surface-variant hover:bg-surface-container-highest">ARS MEP</button>
+        </div>
       </div>
+      <div class="relative h-[240px]"><canvas id="evolChart"></canvas></div>
+    </div>
+    <div class="bg-surface-container-lowest p-6 rounded-xl ambient-shadow">
+      <h2 class="font-headline text-lg font-bold text-on-surface mb-1">Distribución</h2>
+      <p class="text-on-surface-variant text-xs mb-4">Por categoría</p>
+      <div class="relative w-40 h-40 mx-auto mb-4">
+        <canvas id="pieChart"></canvas>
+        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+          <span class="font-headline text-xl font-bold text-on-surface" id="pie-center">$0</span>
+          <span class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">Total</span>
+        </div>
+      </div>
+      <ul class="space-y-2.5" id="pie-legend"></ul>
+    </div>
+  </section>
+  <section class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden mx-4 md:mx-0">
+    <div class="px-6 py-4 border-b border-outline-variant/15 flex justify-between items-center">
+      <h2 class="font-headline text-lg font-bold text-on-surface">Resumen de activos</h2>
+      <button onclick="go('activos')" class="text-primary text-sm font-bold hover:underline">Ver todos →</button>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead><tr class="bg-surface-container-low/50">
+          <th class="px-6 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Activo</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Tipo</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Plataforma</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Precio</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Total USD</th>
+          <th class="px-6 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">ARS</th>
+        </tr></thead>
+        <tbody class="divide-y divide-outline-variant/10" id="dash-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+
+<!-- ── ACTIVOS ──────────────────────────────────────────── -->
+<div class="page" id="page-activos">
+  <div class="flex justify-between items-center mb-5 px-4 md:px-0">
+    <div><h1 class="font-headline text-2xl font-bold text-on-surface">Mis Activos</h1><p class="text-on-surface-variant text-sm">Administrá tu cartera</p></div>
+    <button onclick="openAddAsset()" class="flex items-center gap-1.5 bg-primary text-white font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-sm">
+      <span class="material-symbols-outlined text-[18px]">add</span> Agregar activo
+    </button>
+  </div>
+  <div class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden mx-4 md:mx-0">
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead><tr class="bg-surface-container-low/50">
+          <th class="px-6 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Activo</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Tipo</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Plataforma</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Ref ARS</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Cant.</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Precio USD</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Total USD</th>
+          <th class="px-4 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Total ARS</th>
+          <th class="px-6 py-3.5 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Acciones</th>
+        </tr></thead>
+        <tbody class="divide-y divide-outline-variant/10" id="act-tbody"></tbody>
+      </table>
     </div>
   </div>
+</div>
 
-  <!-- ─── HISTORIAL ─── -->
-  <div class="page" id="page-snapshots">
-    <div class="flex justify-between items-center mb-7 px-4 md:px-0">
-      <div>
-        <h1 class="font-headline text-2xl font-bold text-on-surface">Historial</h1>
-        <p class="text-on-surface-variant text-sm">Snapshots mensuales de tu patrimonio</p>
-      </div>
-      <button onclick="openSnapModal()" class="flex items-center gap-2 bg-primary text-white font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-sm">
-        <span class="material-symbols-outlined text-[18px]">add</span> Nuevo snapshot
+<!-- ── MERCADO ──────────────────────────────────────────── -->
+<div class="page" id="page-mercado">
+  <div class="mb-5 px-4 md:px-0">
+    <h1 class="font-headline text-2xl font-bold text-on-surface">Mercado</h1>
+    <p class="text-on-surface-variant text-sm">Cotizaciones en tiempo real de CEDEARs, Acciones y FCI</p>
+  </div>
+  <!-- Tabs -->
+  <div class="flex gap-2 px-4 md:px-0 mb-5">
+    <button onclick="setMercadoTab('cedears',this)" class="px-4 py-2 text-xs font-bold rounded-full bg-primary-container text-on-primary-container shadow-sm" id="mt-cedears">CEDEARs</button>
+    <button onclick="setMercadoTab('acciones',this)" class="px-4 py-2 text-xs font-bold rounded-full bg-surface-container text-on-surface-variant" id="mt-acciones">Acciones AR</button>
+    <button onclick="setMercadoTab('fci',this)" class="px-4 py-2 text-xs font-bold rounded-full bg-surface-container text-on-surface-variant" id="mt-fci">FCI</button>
+  </div>
+  <div class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden mx-4 md:mx-0">
+    <!-- Search bar -->
+    <div class="px-5 py-3.5 border-b border-outline-variant/15 flex items-center gap-3">
+      <span class="material-symbols-outlined text-on-surface-variant text-[20px]">search</span>
+      <input type="text" id="mercado-search" placeholder="Buscar ticker o nombre..." oninput="filterMercado()" class="flex-1 bg-transparent text-sm text-on-surface outline-none placeholder:text-on-surface-variant">
+      <span class="text-xs text-on-surface-variant" id="mercado-count">—</span>
+      <button onclick="refreshMercado()" title="Actualizar" class="hover:opacity-70 transition-opacity">
+        <span class="material-symbols-outlined text-on-surface-variant text-[20px]" id="refresh-icon">refresh</span>
       </button>
     </div>
-    <div class="bg-surface-container-lowest rounded-xl ambient-shadow mx-4 md:mx-0" id="snaps-list">
+    <div id="mercado-body" class="overflow-y-auto" style="max-height:520px">
       <div class="p-12 text-center text-on-surface-variant">
-        <span class="material-symbols-outlined text-5xl mb-3 block text-outline-variant">bar_chart</span>
-        <p class="font-medium">Guardá tu primer snapshot para ver la evolución.</p>
+        <span class="material-symbols-outlined text-5xl block mb-3 text-outline-variant spin">sync</span>
+        <p class="font-medium">Cargando cotizaciones via Apps Script…</p>
+        <p class="text-xs mt-1">Requiere URL configurada en Config</p>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- ─── CONFIG ─── -->
-  <div class="page" id="page-config">
-    <div class="mb-7 px-4 md:px-0">
-      <h1 class="font-headline text-2xl font-bold text-on-surface">Configuración</h1>
-      <p class="text-on-surface-variant text-sm">Preferencias y conexión con Google Sheets</p>
+<!-- ── HISTORIAL ────────────────────────────────────────── -->
+<div class="page" id="page-snapshots">
+  <div class="flex justify-between items-center mb-5 px-4 md:px-0">
+    <div><h1 class="font-headline text-2xl font-bold text-on-surface">Historial</h1><p class="text-on-surface-variant text-sm">Snapshots mensuales de tu patrimonio</p></div>
+    <button onclick="openSnapModal()" class="flex items-center gap-1.5 bg-primary text-white font-bold text-sm px-5 py-2.5 rounded-full hover:opacity-90 active:scale-95 transition-all shadow-sm">
+      <span class="material-symbols-outlined text-[18px]">add</span> Nuevo
+    </button>
+  </div>
+  <div class="bg-surface-container-lowest rounded-xl ambient-shadow mx-4 md:mx-0" id="snaps-list">
+    <div class="p-12 text-center text-on-surface-variant">
+      <span class="material-symbols-outlined text-5xl mb-3 block text-outline-variant">bar_chart</span>
+      <p class="font-medium">Guardá tu primer snapshot para ver la evolución.</p>
     </div>
+  </div>
+</div>
 
-    <!-- Guía Sheets -->
-    <div class="bg-surface-container-lowest rounded-xl ambient-shadow p-7 mb-6 mx-4 md:mx-0">
-      <h3 class="font-headline font-bold text-on-surface mb-5 flex items-center gap-2">
-        <span class="material-symbols-outlined text-primary text-[20px]">integration_instructions</span>
-        Instrucciones Google Sheets + Apps Script
-      </h3>
+<!-- ── CONFIG ───────────────────────────────────────────── -->
+<div class="page" id="page-config">
+  <div class="mb-5 px-4 md:px-0"><h1 class="font-headline text-2xl font-bold text-on-surface">Configuración</h1></div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5 mx-4 md:mx-0">
+    <div class="bg-surface-container-lowest rounded-xl ambient-shadow p-6">
+      <h3 class="font-headline font-bold text-on-surface mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">cloud</span>Google Apps Script</h3>
       <div class="space-y-4">
-        <div class="flex gap-3 items-start">
-          <span class="w-6 h-6 rounded-full bg-primary-fixed text-primary flex items-center justify-center text-[11px] font-bold shrink-0 mt-0.5">1</span>
-          <p class="text-sm text-on-surface-variant">Creá una Google Sheet con 3 hojas: <code class="bg-surface-container px-1.5 py-0.5 rounded text-on-surface text-xs font-mono">Activos</code>, <code class="bg-surface-container px-1.5 py-0.5 rounded text-on-surface text-xs font-mono">Snapshots</code> y <code class="bg-surface-container px-1.5 py-0.5 rounded text-on-surface text-xs font-mono">Config</code></p>
+        <div>
+          <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">URL del Web App</label>
+          <input type="text" id="cfg-as-url" placeholder="https://script.google.com/macros/s/..." onchange="saveCfg()" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-xs bg-surface-container-lowest text-on-surface font-mono">
         </div>
-        <div class="flex gap-3 items-start">
-          <span class="w-6 h-6 rounded-full bg-primary-fixed text-primary flex items-center justify-center text-[11px] font-bold shrink-0 mt-0.5">2</span>
-          <p class="text-sm text-on-surface-variant">En <code class="bg-surface-container px-1.5 py-0.5 rounded text-on-surface text-xs font-mono">Activos</code>: columnas <code class="bg-surface-container px-1.5 py-0.5 rounded text-on-surface text-xs font-mono">id | nombre | tipo | plataforma | cantidad | precioManual | cryptoSymbol | monedaRef</code></p>
+        <div>
+          <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Fuente de datos</label>
+          <select id="cfg-source" onchange="saveCfg()" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
+            <option value="local">Local (localStorage)</option>
+            <option value="sheets">Google Sheets</option>
+          </select>
         </div>
-        <div class="flex gap-3 items-start">
-          <span class="w-6 h-6 rounded-full bg-primary-fixed text-primary flex items-center justify-center text-[11px] font-bold shrink-0 mt-0.5">3</span>
-          <p class="text-sm text-on-surface-variant">En <code class="bg-surface-container px-1.5 py-0.5 rounded text-on-surface text-xs font-mono">Snapshots</code>: columnas <code class="bg-surface-container px-1.5 py-0.5 rounded text-on-surface text-xs font-mono">id | fecha | nota | totalUsd</code></p>
-        </div>
-        <div class="flex gap-3 items-start">
-          <span class="w-6 h-6 rounded-full bg-primary-fixed text-primary flex items-center justify-center text-[11px] font-bold shrink-0 mt-0.5">4</span>
-          <p class="text-sm text-on-surface-variant">Andá a <code class="bg-surface-container px-1.5 py-0.5 rounded text-on-surface text-xs font-mono">Extensiones › Apps Script</code>, pegá el código de abajo y deployá como <strong>Web App</strong> (ejecutar como vos, acceso para cualquiera)</p>
-        </div>
-        <div class="flex gap-3 items-start">
-          <span class="w-6 h-6 rounded-full bg-primary-fixed text-primary flex items-center justify-center text-[11px] font-bold shrink-0 mt-0.5">5</span>
-          <p class="text-sm text-on-surface-variant">Pegá la URL del deploy en el campo de abajo. La app leerá y escribirá en tu Sheet.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 mx-4 md:mx-0">
-      <!-- Backend config -->
-      <div class="bg-surface-container-lowest rounded-xl ambient-shadow p-7">
-        <h3 class="font-headline font-bold text-on-surface mb-5 flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-[20px]">cloud</span>
-          Backend
-        </h3>
-        <div class="space-y-4">
-          <div>
-            <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">URL del Web App (Apps Script)</label>
-            <input type="text" id="cfg-as-url" placeholder="https://script.google.com/macros/s/..." onchange="saveCfg()"
-              class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface font-mono">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Fuente de datos</label>
-            <select id="cfg-source" onchange="saveCfg()"
-              class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
-              <option value="local">Local (localStorage)</option>
-              <option value="sheets">Google Sheets</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <!-- Dolar config -->
-      <div class="bg-surface-container-lowest rounded-xl ambient-shadow p-7">
-        <h3 class="font-headline font-bold text-on-surface mb-5 flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-[20px]">currency_exchange</span>
-          Dólar de referencia
-        </h3>
-        <div class="space-y-4">
-          <div>
-            <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Conversión ARS por default</label>
-            <select id="cfg-dolar" onchange="saveCfg()"
-              class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
-              <option value="blue">USD Blue</option>
-              <option value="mep">USD MEP</option>
-              <option value="ccl">USD CCL</option>
-              <option value="cripto">USD Cripto</option>
-            </select>
-          </div>
-          <div class="grid grid-cols-2 gap-3 pt-1">
-            <button onclick="exportData()" class="flex items-center justify-center gap-1.5 border border-outline-variant text-on-surface-variant text-xs font-bold py-2.5 rounded-full hover:bg-surface-container transition-colors">
-              <span class="material-symbols-outlined text-[16px]">download</span> Exportar
-            </button>
-            <button onclick="clearAll()" class="flex items-center justify-center gap-1.5 bg-error-container text-error text-xs font-bold py-2.5 rounded-full hover:opacity-90 transition-colors">
-              <span class="material-symbols-outlined text-[16px]">delete</span> Borrar todo
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Apps Script code -->
-    <div class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden mx-4 md:mx-0">
-      <div class="px-7 py-5 border-b border-outline-variant/15 flex justify-between items-center">
-        <h3 class="font-headline font-bold text-on-surface flex items-center gap-2">
-          <span class="material-symbols-outlined text-primary text-[20px]">code</span>
-          Código Apps Script (Code.gs)
-        </h3>
-        <button onclick="copyGS()" class="flex items-center gap-1.5 text-primary text-xs font-bold hover:underline">
-          <span class="material-symbols-outlined text-[16px]">content_copy</span> Copiar código
+        <button onclick="testConnection()" class="w-full flex items-center justify-center gap-2 border border-primary/30 text-primary text-sm font-bold py-2.5 rounded-full hover:bg-primary-fixed/50 transition-colors">
+          <span class="material-symbols-outlined text-[18px]">wifi_tethering</span> Probar conexión
         </button>
+        <div id="conn-result" class="text-xs text-center text-on-surface-variant hidden"></div>
       </div>
-      <pre id="gs-code" class="p-6 text-xs text-on-surface-variant font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap bg-surface-container-low/40"></pre>
+    </div>
+    <div class="bg-surface-container-lowest rounded-xl ambient-shadow p-6">
+      <h3 class="font-headline font-bold text-on-surface mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">currency_exchange</span>Dólar de referencia</h3>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Conversión ARS por default</label>
+          <select id="cfg-dolar" onchange="saveCfg()" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
+            <option value="blue">USD Blue</option>
+            <option value="mep">USD MEP</option>
+            <option value="ccl">USD CCL</option>
+            <option value="cripto">USD Cripto</option>
+          </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3 pt-1">
+          <button onclick="exportData()" class="flex items-center justify-center gap-1.5 border border-outline-variant text-on-surface-variant text-xs font-bold py-2.5 rounded-full hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-[16px]">download</span>Exportar</button>
+          <button onclick="clearAll()" class="flex items-center justify-center gap-1.5 bg-error-container text-error text-xs font-bold py-2.5 rounded-full hover:opacity-90"><span class="material-symbols-outlined text-[16px]">delete</span>Borrar todo</button>
+        </div>
+      </div>
     </div>
   </div>
+  <!-- Apps Script code -->
+  <div class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden mx-4 md:mx-0">
+    <div class="px-6 py-4 border-b border-outline-variant/15 flex justify-between items-center">
+      <h3 class="font-headline font-bold text-on-surface flex items-center gap-2"><span class="material-symbols-outlined text-primary text-[20px]">code</span>Código Apps Script (Code.gs)</h3>
+      <button onclick="copyGS()" class="flex items-center gap-1.5 text-primary text-xs font-bold hover:underline"><span class="material-symbols-outlined text-[16px]">content_copy</span>Copiar</button>
+    </div>
+    <pre id="gs-code" class="p-5 text-xs text-on-surface-variant font-mono leading-relaxed overflow-x-auto whitespace-pre-wrap bg-surface-container-low/30 max-h-96"></pre>
+  </div>
+</div>
 
 </main>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     BOTTOM NAV (mobile)
-══════════════════════════════════════════════ -->
-<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 backdrop-blur-xl border-t border-outline-variant/20 px-4 pb-6 pt-3 flex justify-around items-center">
-  <button onclick="go('dashboard')" class="flex flex-col items-center gap-0.5 text-primary bg-primary/10 rounded-xl px-4 py-2 active:scale-90 transition-all" id="bn-dashboard">
-    <span class="material-symbols-outlined text-[22px]">dashboard</span>
-    <span class="text-[10px] font-bold uppercase tracking-wider">Portfolio</span>
-  </button>
-  <button onclick="go('activos')" class="flex flex-col items-center gap-0.5 text-on-surface-variant opacity-60 px-4 py-2 active:scale-90 transition-all" id="bn-activos">
-    <span class="material-symbols-outlined text-[22px]">account_balance_wallet</span>
-    <span class="text-[10px] font-bold uppercase tracking-wider">Activos</span>
-  </button>
-  <button onclick="go('snapshots')" class="flex flex-col items-center gap-0.5 text-on-surface-variant opacity-60 px-4 py-2 active:scale-90 transition-all" id="bn-snapshots">
-    <span class="material-symbols-outlined text-[22px]">history</span>
-    <span class="text-[10px] font-bold uppercase tracking-wider">Historial</span>
-  </button>
-  <button onclick="go('config')" class="flex flex-col items-center gap-0.5 text-on-surface-variant opacity-60 px-4 py-2 active:scale-90 transition-all" id="bn-config">
-    <span class="material-symbols-outlined text-[22px]">settings</span>
-    <span class="text-[10px] font-bold uppercase tracking-wider">Config</span>
-  </button>
+<!-- BOTTOM NAV MOBILE -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-white/90 backdrop-blur-xl border-t border-outline-variant/20 px-2 pb-5 pt-2 flex justify-around items-center">
+  <button onclick="go('dashboard')"  class="flex flex-col items-center gap-0.5 text-primary bg-primary/10 rounded-xl px-3 py-2 active:scale-90 transition-all" id="bn-dashboard"><span class="material-symbols-outlined text-[22px]">dashboard</span><span class="text-[10px] font-bold uppercase tracking-wider">Portfolio</span></button>
+  <button onclick="go('activos')"    class="flex flex-col items-center gap-0.5 text-on-surface-variant opacity-60 px-3 py-2 active:scale-90 transition-all" id="bn-activos"><span class="material-symbols-outlined text-[22px]">account_balance_wallet</span><span class="text-[10px] font-bold uppercase tracking-wider">Activos</span></button>
+  <button onclick="go('mercado')"    class="flex flex-col items-center gap-0.5 text-on-surface-variant opacity-60 px-3 py-2 active:scale-90 transition-all" id="bn-mercado"><span class="material-symbols-outlined text-[22px]">query_stats</span><span class="text-[10px] font-bold uppercase tracking-wider">Mercado</span></button>
+  <button onclick="go('snapshots')"  class="flex flex-col items-center gap-0.5 text-on-surface-variant opacity-60 px-3 py-2 active:scale-90 transition-all" id="bn-snapshots"><span class="material-symbols-outlined text-[22px]">history</span><span class="text-[10px] font-bold uppercase tracking-wider">Historial</span></button>
+  <button onclick="go('config')"     class="flex flex-col items-center gap-0.5 text-on-surface-variant opacity-60 px-3 py-2 active:scale-90 transition-all" id="bn-config"><span class="material-symbols-outlined text-[22px]">settings</span><span class="text-[10px] font-bold uppercase tracking-wider">Config</span></button>
 </nav>
 
-<!-- ══════════════════════════════════════════════
-     MODAL: ACTIVO
-══════════════════════════════════════════════ -->
+<!-- MODAL ACTIVO -->
 <div class="modal-overlay" id="mo-asset">
-  <div class="bg-surface-container-lowest rounded-2xl p-7 w-full max-w-lg mx-4 ambient-shadow">
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="font-headline text-lg font-bold text-on-surface" id="mo-asset-title">Nuevo activo</h2>
-      <button onclick="closeModal('mo-asset')" class="text-on-surface-variant hover:text-on-surface transition-colors">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
+  <div class="bg-surface-container-lowest rounded-2xl p-6 w-full max-w-lg mx-4 ambient-shadow">
+    <div class="flex justify-between items-center mb-5"><h2 class="font-headline text-lg font-bold text-on-surface" id="mo-asset-title">Nuevo activo</h2><button onclick="closeModal('mo-asset')"><span class="material-symbols-outlined text-on-surface-variant">close</span></button></div>
     <input type="hidden" id="a-eid">
     <div class="grid grid-cols-2 gap-4 mb-4">
-      <div>
-        <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Nombre</label>
-        <input type="text" id="a-nombre" placeholder="Ej: Bitcoin" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
-      </div>
-      <div>
-        <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Plataforma</label>
-        <input type="text" id="a-plat" placeholder="Ej: Binance" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
-      </div>
+      <div><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Nombre</label><input type="text" id="a-nombre" placeholder="Ej: Bitcoin" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface"></div>
+      <div><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Plataforma</label><input type="text" id="a-plat" placeholder="Ej: Binance" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface"></div>
     </div>
     <div class="grid grid-cols-2 gap-4 mb-4">
-      <div>
-        <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Tipo</label>
-        <select id="a-tipo" onchange="onTipoChange()" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
-          <option value="crypto">Cripto</option>
-          <option value="fondo">Fondo</option>
-          <option value="accion">Acción / CEDEAR</option>
-          <option value="efectivo">Efectivo / Stable</option>
-        </select>
-      </div>
-      <div>
-        <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Referencia ARS</label>
-        <select id="a-mref" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
-          <option value="usd_cripto">USD Cripto</option>
-          <option value="usd_mep">USD MEP</option>
-          <option value="usd_blue">USD Blue</option>
-        </select>
-      </div>
+      <div><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Tipo</label><select id="a-tipo" onchange="onTipoChange()" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface"><option value="crypto">Cripto</option><option value="fondo">Fondo</option><option value="accion">Acción / CEDEAR</option><option value="efectivo">Efectivo / Stable</option></select></div>
+      <div><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Ref ARS</label><select id="a-mref" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface"><option value="usd_cripto">USD Cripto</option><option value="usd_mep">USD MEP</option><option value="usd_blue">USD Blue</option></select></div>
     </div>
-    <!-- Cripto section -->
+    <!-- CRIPTO section -->
     <div id="crypto-section" class="mb-4">
-      <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Símbolo cripto (precio automático)</label>
+      <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Símbolo cripto (CriptoYa — precio automático)</label>
       <input type="text" id="a-symbol" placeholder="BTC, ETH, BNB, SOL, USDT…" oninput="this.value=this.value.toUpperCase()" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface mb-2">
       <div class="flex items-center justify-between bg-surface-container-low rounded-lg px-4 py-2.5">
         <span class="text-xs text-on-surface-variant">Precio live (CriptoYa)</span>
         <span class="text-sm font-bold text-primary" id="live-price-val">— escribí el símbolo</span>
       </div>
     </div>
-    <div class="grid grid-cols-2 gap-4 mb-6">
-      <div>
-        <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Cantidad</label>
-        <input type="number" id="a-cant" placeholder="Ej: 0.028" step="any" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
+    <!-- ACCION section -->
+    <div id="accion-section" class="mb-4 hidden">
+      <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Ticker BYMA (precio automático via Apps Script)</label>
+      <div class="flex gap-2">
+        <input type="text" id="a-ticker" placeholder="GLOB, GGAL, YPF, MELI…" oninput="this.value=this.value.toUpperCase()" class="flex-1 border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
+        <button onclick="lookupTicker()" class="px-4 py-2 bg-primary-fixed text-primary text-xs font-bold rounded-lg hover:opacity-80 transition-opacity">Buscar</button>
       </div>
+      <div class="flex items-center justify-between bg-surface-container-low rounded-lg px-4 py-2.5 mt-2">
+        <span class="text-xs text-on-surface-variant">Precio live (BYMA via Apps Script)</span>
+        <span class="text-sm font-bold text-primary" id="byma-price-val">— buscá el ticker</span>
+      </div>
+    </div>
+    <!-- FCI section -->
+    <div id="fci-section" class="mb-4 hidden">
+      <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Nombre del fondo (búsqueda parcial)</label>
+      <div class="flex gap-2">
+        <input type="text" id="a-fci-nombre" placeholder="Ej: Fima Mix, Galicia…" class="flex-1 border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
+        <button onclick="lookupFCI()" class="px-4 py-2 bg-secondary-fixed text-secondary text-xs font-bold rounded-lg hover:opacity-80 transition-opacity">Buscar</button>
+      </div>
+      <div id="fci-results" class="mt-2 space-y-1 max-h-32 overflow-y-auto"></div>
+    </div>
+    <div class="grid grid-cols-2 gap-4 mb-5">
+      <div><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Cantidad</label><input type="number" id="a-cant" placeholder="Ej: 0.028" step="any" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface"></div>
       <div>
         <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Precio manual (USD)</label>
-        <input type="number" id="a-precio" placeholder="Si no hay símbolo" step="any" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
-        <p class="text-[10px] text-on-surface-variant mt-1">Cripto con símbolo: se ignora</p>
+        <input type="number" id="a-precio" placeholder="Fallback si no hay auto" step="any" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
+        <p class="text-[10px] text-on-surface-variant mt-1">Se usa solo si no hay precio automático</p>
       </div>
     </div>
     <div class="flex gap-3 justify-end">
@@ -535,98 +375,88 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════
-     MODAL: SNAPSHOT
-══════════════════════════════════════════════ -->
+<!-- MODAL SNAPSHOT -->
 <div class="modal-overlay" id="mo-snap">
-  <div class="bg-surface-container-lowest rounded-2xl p-7 w-full max-w-md mx-4 ambient-shadow">
-    <div class="flex justify-between items-center mb-2">
-      <h2 class="font-headline text-lg font-bold text-on-surface">Guardar snapshot</h2>
-      <button onclick="closeModal('mo-snap')" class="text-on-surface-variant hover:text-on-surface transition-colors">
-        <span class="material-symbols-outlined">close</span>
-      </button>
-    </div>
-    <p class="text-sm text-on-surface-variant mb-5">Guardá el estado actual de todos tus activos.</p>
-    <div class="mb-4">
-      <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Fecha</label>
-      <input type="date" id="sn-fecha" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
-    </div>
-    <div class="mb-5">
-      <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Nota (opcional)</label>
-      <input type="text" id="sn-nota" placeholder="Ej: Cierre de abril" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface">
-    </div>
-    <div class="flex items-center justify-between bg-primary-fixed/60 rounded-xl px-5 py-4 mb-6">
+  <div class="bg-surface-container-lowest rounded-2xl p-6 w-full max-w-md mx-4 ambient-shadow">
+    <div class="flex justify-between items-center mb-2"><h2 class="font-headline text-lg font-bold text-on-surface">Guardar snapshot</h2><button onclick="closeModal('mo-snap')"><span class="material-symbols-outlined text-on-surface-variant">close</span></button></div>
+    <p class="text-sm text-on-surface-variant mb-4">Guardá el estado actual de todos tus activos.</p>
+    <div class="mb-4"><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Fecha</label><input type="date" id="sn-fecha" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface"></div>
+    <div class="mb-4"><label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Nota (opcional)</label><input type="text" id="sn-nota" placeholder="Ej: Cierre de abril" class="w-full border border-outline-variant rounded-lg px-3 py-2.5 text-sm bg-surface-container-lowest text-on-surface"></div>
+    <div class="flex items-center justify-between bg-primary-fixed/60 rounded-xl px-5 py-4 mb-5">
       <span class="text-sm font-medium text-on-surface">Total a guardar</span>
       <span class="font-headline text-xl font-bold text-primary" id="sn-preview">$0</span>
     </div>
     <div class="flex gap-3 justify-end">
-      <button onclick="closeModal('mo-snap')" class="px-5 py-2.5 text-sm font-bold text-on-surface-variant border border-outline-variant rounded-full hover:bg-surface-container transition-colors">Cancelar</button>
-      <button onclick="saveSnap()" class="px-5 py-2.5 text-sm font-bold bg-primary text-white rounded-full hover:opacity-90 active:scale-95 transition-all">Confirmar</button>
+      <button onclick="closeModal('mo-snap')" class="px-5 py-2.5 text-sm font-bold text-on-surface-variant border border-outline-variant rounded-full hover:bg-surface-container">Cancelar</button>
+      <button onclick="saveSnap()" class="px-5 py-2.5 text-sm font-bold bg-primary text-white rounded-full hover:opacity-90 active:scale-95">Confirmar</button>
     </div>
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- ══════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════ -->
 <script>
-// ─── STATE ─────────────────────────────────────
-const S = {
-  activos: [], snapshots: [],
-  cfg: { dolarType:'blue', source:'local', asUrl:'' },
-  rates: { blue:null, mep:null, ccl:null, cripto:null },
-  cryptoPrices: {},
-  evolMode: 'usd',
-  evolChart: null, pieChart: null
-};
-const TIPO_LABEL  = { crypto:'Cripto', fondo:'Fondo', accion:'Acción', efectivo:'Efectivo' };
-const MREF_LABEL  = { usd_cripto:'Cripto', usd_mep:'MEP', usd_blue:'Blue' };
-const PIE_COLORS  = ['#5d3ade','#006d37','#565d5f','#f0a020'];
-const PIE_TYPES   = ['crypto','fondo','accion','efectivo'];
-const PIE_LABELS  = ['Cripto','Fondos','Acciones','Efectivo'];
+// ══════════════════════════════════════════════════════════════
+// CONFIG — APPS SCRIPT URL
+// ══════════════════════════════════════════════════════════════
+const DEFAULT_AS_URL = 'https://script.google.com/macros/s/AKfycbywGxijFD9JChhPK83cuDa1djx83mknb8pr3GTLdYtOjgFxJYSeHdxNhADm_GFhD5fW/exec';
 
-// ─── BADGE HTML ─────────────────────────────────
+// ── STATE ─────────────────────────────────────────────────────
+const S = {
+  activos:[], snapshots:[],
+  cfg:{ dolarType:'blue', source:'local', asUrl: DEFAULT_AS_URL },
+  rates:{ blue:null, mep:null, ccl:null, cripto:null },
+  cryptoPrices:{},  // { BTC: 84000, ... }
+  bymaCache:{},     // { GLOB: { last:2.71, change:0.5 }, ... }
+  fciCache:[],      // [{ fondo:'Fima Mix', vcn:... }]
+  mercadoData:{ cedears:[], acciones:[], fci:[] },
+  mercadoTab:'cedears',
+  evolMode:'usd',
+  evolChart:null, pieChart:null,
+};
+const TIPO_LABEL = { crypto:'Cripto', fondo:'Fondo', accion:'Acción', efectivo:'Efectivo' };
+const MREF_LABEL = { usd_cripto:'Cripto', usd_mep:'MEP', usd_blue:'Blue' };
+const PIE_COLORS = ['#5d3ade','#006d37','#565d5f','#f0a020'];
+const PIE_TYPES  = ['crypto','fondo','accion','efectivo'];
+const PIE_LABELS = ['Cripto','Fondos','Acciones','Efectivo'];
+
+// ── BADGES ──────────────────────────────────────────────────
 function tipoBadge(tipo) {
-  const map = {
-    crypto: 'bg-primary-fixed text-on-primary-fixed',
-    fondo:  'bg-secondary-fixed text-on-secondary-fixed',
-    accion: 'bg-tertiary-fixed text-on-tertiary-fixed',
-    efectivo:'bg-surface-container text-on-surface-variant'
-  };
-  return `<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase ${map[tipo]}">${TIPO_LABEL[tipo]}</span>`;
+  const m={crypto:'bg-primary-fixed text-on-primary-fixed',fondo:'bg-secondary-fixed text-on-secondary-fixed',accion:'bg-tertiary-fixed text-on-tertiary-fixed',efectivo:'bg-surface-container text-on-surface-variant'};
+  return `<span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase ${m[tipo]}">${TIPO_LABEL[tipo]}</span>`;
 }
 function mrefBadge(mref) {
-  const map = { usd_cripto:'bg-primary-fixed text-primary', usd_mep:'bg-secondary-fixed text-secondary', usd_blue:'bg-tertiary-fixed text-tertiary' };
-  return `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${map[mref]}">${MREF_LABEL[mref]}</span>`;
+  const m={usd_cripto:'bg-primary-fixed text-primary',usd_mep:'bg-secondary-fixed text-secondary',usd_blue:'bg-tertiary-fixed text-tertiary'};
+  return `<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${m[mref]}">${MREF_LABEL[mref]}</span>`;
 }
+function iconFor(t){ return {crypto:'currency_bitcoin',fondo:'savings',accion:'candlestick_chart',efectivo:'payments'}[t]||'account_balance_wallet'; }
 
-// ─── PERSIST ────────────────────────────────────
-function saveLocal() { localStorage.setItem('ft3', JSON.stringify({activos:S.activos,snapshots:S.snapshots,cfg:S.cfg})); }
-function loadLocal() {
-  try {
-    const d = JSON.parse(localStorage.getItem('ft3')||'{}');
-    if(d.activos)   S.activos   = d.activos;
-    if(d.snapshots) S.snapshots = d.snapshots;
-    if(d.cfg)       S.cfg       = {...S.cfg,...d.cfg};
+// ── PERSIST ──────────────────────────────────────────────────
+function saveLocal(){ localStorage.setItem('ft4',JSON.stringify({activos:S.activos,snapshots:S.snapshots,cfg:S.cfg})); }
+function loadLocal(){
+  try{
+    const d=JSON.parse(localStorage.getItem('ft4')||'{}');
+    if(d.activos)   S.activos=d.activos;
+    if(d.snapshots) S.snapshots=d.snapshots;
+    if(d.cfg)       S.cfg={...S.cfg,...d.cfg};
+    // Siempre aseguramos la URL hardcodeada si está vacía
+    if(!S.cfg.asUrl) S.cfg.asUrl = DEFAULT_AS_URL;
     if(!S.activos.length) seedData();
   } catch(e){ seedData(); }
 }
-function seedData() {
-  S.activos = [
-    {id:uid(),nombre:'Fima Mix Dólares',tipo:'fondo',   plataforma:'Galicia',    cantidad:1,     precioManual:2200, cryptoSymbol:'', monedaRef:'usd_mep'},
-    {id:uid(),nombre:'Fima Premium',    tipo:'fondo',   plataforma:'Galicia',    cantidad:1,     precioManual:1300, cryptoSymbol:'', monedaRef:'usd_mep'},
-    {id:uid(),nombre:'Bitcoin',         tipo:'crypto',  plataforma:'Binance',    cantidad:0.028, precioManual:null, cryptoSymbol:'BTC', monedaRef:'usd_cripto'},
-    {id:uid(),nombre:'Ethereum',        tipo:'crypto',  plataforma:'Binance',    cantidad:0.42,  precioManual:null, cryptoSymbol:'ETH', monedaRef:'usd_cripto'},
-    {id:uid(),nombre:'USDT',            tipo:'crypto',  plataforma:'Bull Market',cantidad:800,   precioManual:1,    cryptoSymbol:'USDT',monedaRef:'usd_cripto'},
-    {id:uid(),nombre:'GLOB',            tipo:'accion',  plataforma:'Broker',     cantidad:28,    precioManual:2.71, cryptoSymbol:'', monedaRef:'usd_mep'},
-    {id:uid(),nombre:'MercadoLibre',    tipo:'accion',  plataforma:'Broker',     cantidad:0.68,  precioManual:1800, cryptoSymbol:'', monedaRef:'usd_mep'},
-    {id:uid(),nombre:'Dólares físicos', tipo:'efectivo',plataforma:'Billetera',  cantidad:800,   precioManual:1,    cryptoSymbol:'', monedaRef:'usd_blue'},
-    {id:uid(),nombre:'USDC',            tipo:'efectivo',plataforma:'Metamask',   cantidad:1076,  precioManual:1,    cryptoSymbol:'USDC',monedaRef:'usd_cripto'},
+function seedData(){
+  S.activos=[
+    {id:uid(),nombre:'Fima Mix Dólares', tipo:'fondo',   plataforma:'Galicia',    cantidad:1,     precioManual:2200, cryptoSymbol:'',   bymaSymbol:'',         fciNombre:'Fima Mix Dólares', monedaRef:'usd_mep'},
+    {id:uid(),nombre:'Fima Premium',     tipo:'fondo',   plataforma:'Galicia',    cantidad:1,     precioManual:1300, cryptoSymbol:'',   bymaSymbol:'',         fciNombre:'Fima Premium',     monedaRef:'usd_mep'},
+    {id:uid(),nombre:'Bitcoin',          tipo:'crypto',  plataforma:'Binance',    cantidad:0.028, precioManual:null, cryptoSymbol:'BTC',bymaSymbol:'',         fciNombre:'',                 monedaRef:'usd_cripto'},
+    {id:uid(),nombre:'Ethereum',         tipo:'crypto',  plataforma:'Binance',    cantidad:0.42,  precioManual:null, cryptoSymbol:'ETH',bymaSymbol:'',         fciNombre:'',                 monedaRef:'usd_cripto'},
+    {id:uid(),nombre:'USDT',             tipo:'crypto',  plataforma:'Bull Market',cantidad:800,   precioManual:1,    cryptoSymbol:'USDT',bymaSymbol:'',        fciNombre:'',                 monedaRef:'usd_cripto'},
+    {id:uid(),nombre:'GLOB',             tipo:'accion',  plataforma:'Broker',     cantidad:28,    precioManual:2.71, cryptoSymbol:'',   bymaSymbol:'GLOB',     fciNombre:'',                 monedaRef:'usd_mep'},
+    {id:uid(),nombre:'MercadoLibre',     tipo:'accion',  plataforma:'Broker',     cantidad:0.68,  precioManual:1800, cryptoSymbol:'',   bymaSymbol:'MELI',     fciNombre:'',                 monedaRef:'usd_mep'},
+    {id:uid(),nombre:'Dólares físicos',  tipo:'efectivo',plataforma:'Billetera',  cantidad:800,   precioManual:1,    cryptoSymbol:'',   bymaSymbol:'',         fciNombre:'',                 monedaRef:'usd_blue'},
+    {id:uid(),nombre:'USDC',             tipo:'efectivo',plataforma:'Metamask',   cantidad:1076,  precioManual:1,    cryptoSymbol:'USDC',bymaSymbol:'',        fciNombre:'',                 monedaRef:'usd_cripto'},
   ];
-  S.snapshots = [
+  S.snapshots=[
     {id:uid(),fecha:'2024-10-31',nota:'Cierre octubre',  totalUsd:8400},
     {id:uid(),fecha:'2024-11-30',nota:'Cierre noviembre',totalUsd:9200},
     {id:uid(),fecha:'2024-12-31',nota:'Cierre diciembre',totalUsd:9800},
@@ -638,91 +468,199 @@ function seedData() {
 }
 function uid(){ return Math.random().toString(36).slice(2,9); }
 
-// ─── RATES ──────────────────────────────────────
-async function fetchRates() {
-  try {
-    const r = await fetch('https://criptoya.com/api/dolar');
-    const d = await r.json();
+// ── APPS SCRIPT CALLS ───────────────────────────────────────
+function asUrl(){ return S.cfg.asUrl || DEFAULT_AS_URL; }
+
+async function asGet(action, extra='') {
+  const r = await fetch(`${asUrl()}?action=${action}${extra}`);
+  return r.json();
+}
+async function asPost(body) {
+  const r = await fetch(asUrl(), {
+    method:'POST',
+    body: JSON.stringify(body),
+    headers:{'Content-Type':'application/json'}
+  });
+  return r.json();
+}
+
+// ── SHEETS SYNC ─────────────────────────────────────────────
+async function syncFromSheets(){
+  if(S.cfg.source !== 'sheets') return;
+  setSheetStatus('loading');
+  try{
+    const [activos, snaps] = await Promise.all([asGet('getActivos'), asGet('getSnapshots')]);
+    if(Array.isArray(activos))  S.activos   = activos;
+    if(Array.isArray(snaps))    S.snapshots = snaps;
+    setSheetStatus('ok');
+    renderDashboard(); renderActivos();
+  } catch(e){
+    setSheetStatus('err');
+  }
+}
+function setSheetStatus(s){
+  const dot   = document.getElementById('sheets-dot');
+  const label = document.getElementById('sheets-label');
+  if(s==='ok')      { dot.className='status-dot status-ok';      label.textContent='Sheets ✓'; }
+  else if(s==='err'){ dot.className='status-dot status-err';     label.textContent='Sheets ✗'; }
+  else              { dot.className='status-dot status-loading'; label.textContent='Sheets…'; }
+}
+
+async function persistActivo(a){
+  if(S.cfg.source==='sheets') await asPost({action:'saveActivo',data:a});
+  saveLocal();
+}
+async function removeActivo(id){
+  if(S.cfg.source==='sheets') await asPost({action:'deleteActivo',id});
+  S.activos=S.activos.filter(a=>a.id!==id); saveLocal();
+}
+async function persistSnap(s){
+  if(S.cfg.source==='sheets') await asPost({action:'saveSnapshot',data:s});
+  saveLocal();
+}
+async function removeSnap(id){
+  if(S.cfg.source==='sheets') await asPost({action:'deleteSnapshot',id});
+  S.snapshots=S.snapshots.filter(s=>s.id!==id); saveLocal();
+}
+
+// ── RATES — CRIPTOYA ────────────────────────────────────────
+async function fetchRates(){
+  try{
+    const r=await fetch('https://criptoya.com/api/dolar');
+    const d=await r.json();
     S.rates.blue   = d.blue?.ask   || d.blue?.venta   || null;
     S.rates.mep    = d.mep?.ask    || d.mep?.venta    || null;
     S.rates.ccl    = d.ccl?.ask    || d.ccl?.venta    || null;
     S.rates.cripto = d.cripto?.ask || d.cripto?.venta || null;
-  } catch(e) {
-    S.rates = { blue:1295, mep:1260, ccl:1310, cripto:1285 };
+    document.getElementById('hdr-dot').className='status-dot status-ok';
+  } catch(e){
+    S.rates={blue:1295,mep:1260,ccl:1310,cripto:1285};
+    document.getElementById('hdr-dot').className='status-dot status-err';
   }
   updateRateUI();
-  const symbols = [...new Set(S.activos.filter(a=>a.cryptoSymbol).map(a=>a.cryptoSymbol.toLowerCase()))];
+  // Cripto prices
+  const symbols=[...new Set(S.activos.filter(a=>a.cryptoSymbol).map(a=>a.cryptoSymbol.toLowerCase()))];
   await Promise.all(symbols.map(fetchCryptoPrice));
+  // BYMA prices para activos tipo accion con bymaSymbol
+  const tickers=[...new Set(S.activos.filter(a=>a.bymaSymbol).map(a=>a.bymaSymbol))];
+  if(tickers.length) await fetchBymaBatch(tickers);
+  // FCI prices
+  const fciNames=[...new Set(S.activos.filter(a=>a.fciNombre&&a.tipo==='fondo').map(a=>a.fciNombre))];
+  if(fciNames.length) await fetchFCIBatch(fciNames);
   renderDashboard(); renderActivos();
 }
-async function fetchCryptoPrice(sym) {
+
+async function fetchCryptoPrice(sym){
   if(!sym) return;
-  try {
-    const r = await fetch(`https://criptoya.com/api/${sym}/usd/0.1`);
-    const d = await r.json();
-    const price = d.binance?.ask || d.letsbit?.ask ||
-      Object.values(d).find(v=>v&&typeof v.ask==='number')?.ask || null;
-    if(price) S.cryptoPrices[sym.toUpperCase()] = price;
-  } catch(e){}
+  try{
+    const r=await fetch(`https://criptoya.com/api/${sym}/usd/0.1`);
+    const d=await r.json();
+    const price=d.binance?.ask||d.letsbit?.ask||Object.values(d).find(v=>v&&typeof v.ask==='number')?.ask||null;
+    if(price) S.cryptoPrices[sym.toUpperCase()]=price;
+  }catch(e){}
 }
-function updateRateUI() {
-  const fmt = v => v ? '$ '+Math.round(v).toLocaleString('es-AR') : '—';
+
+async function fetchBymaBatch(tickers){
+  // Llamamos Apps Script como proxy para BYMA
+  try{
+    for(const t of tickers){
+      const d = await asGet('getCotizacion','&ticker='+t);
+      if(d && d.last) S.bymaCache[t.toUpperCase()] = d;
+    }
+  }catch(e){}
+}
+
+async function fetchFCIBatch(nombres){
+  try{
+    const d = await asGet('getFCI');
+    if(Array.isArray(d)) {
+      S.fciCache = d;
+      nombres.forEach(nombre=>{
+        const found = d.find(f => f.fondo && f.fondo.toLowerCase().includes(nombre.toLowerCase()));
+        if(found && found.vcn) S.bymaCache['FCI_'+nombre] = { last: found.vcn, fondo: found.fondo };
+      });
+    }
+  }catch(e){}
+}
+
+function updateRateUI(){
+  const fmt=v=>v?'$ '+Math.round(v).toLocaleString('es-AR'):'—';
   document.getElementById('sb-blue').textContent   = fmt(S.rates.blue);
   document.getElementById('sb-mep').textContent    = fmt(S.rates.mep);
   document.getElementById('sb-ccl').textContent    = fmt(S.rates.ccl);
   document.getElementById('sb-cripto').textContent = fmt(S.rates.cripto);
-  document.getElementById('header-blue').textContent = 'Blue: ' + fmt(S.rates.blue);
-  document.getElementById('header-mep').textContent  = 'MEP: '  + fmt(S.rates.mep);
+  document.getElementById('hdr-blue').textContent  = 'Blue: '+fmt(S.rates.blue);
+  document.getElementById('hdr-mep').textContent   = 'MEP: '+fmt(S.rates.mep);
 }
 
-// ─── GETTERS ─────────────────────────────────────
-function getRate(mref) {
+// ── PRICE RESOLUTION ─────────────────────────────────────────
+// Para cada activo, resuelve el precio en USD:
+// cripto con symbol → CriptoYa
+// accion con bymaSymbol → BYMA via Apps Script (precio en ARS, dividido por CCL)
+// fondo con fciNombre → CAFCI via Apps Script (VCN en ARS, dividido por MEP)
+// fallback → precioManual
+function getPrice(a){
+  // 1. Cripto
+  if(a.cryptoSymbol && S.cryptoPrices[a.cryptoSymbol.toUpperCase()])
+    return S.cryptoPrices[a.cryptoSymbol.toUpperCase()];
+  // 2. Acción BYMA (precio en ARS → dividido CCL para tener USD)
+  if(a.bymaSymbol && S.bymaCache[a.bymaSymbol.toUpperCase()]){
+    const arsPrice = S.bymaCache[a.bymaSymbol.toUpperCase()].last;
+    const ccl = S.rates.ccl || S.rates.mep || 1310;
+    return arsPrice / ccl;
+  }
+  // 3. FCI (VCN en ARS → dividido MEP)
+  if(a.fciNombre && S.bymaCache['FCI_'+a.fciNombre]){
+    const vcn = S.bymaCache['FCI_'+a.fciNombre].last;
+    const mep = S.rates.mep || S.rates.blue || 1260;
+    return vcn / mep;
+  }
+  return a.precioManual || 0;
+}
+function getPriceTag(a){
+  if(a.cryptoSymbol && S.cryptoPrices[a.cryptoSymbol.toUpperCase()]) return 'CRIPTO';
+  if(a.bymaSymbol   && S.bymaCache[a.bymaSymbol.toUpperCase()])       return 'BYMA';
+  if(a.fciNombre    && S.bymaCache['FCI_'+a.fciNombre])               return 'FCI';
+  return 'manual';
+}
+function getTotal(a){ return a.cantidad * getPrice(a); }
+function getTotalUsd(){ return S.activos.reduce((s,a)=>s+getTotal(a),0); }
+function getByTipo(t){ return S.activos.filter(a=>a.tipo===t).reduce((s,a)=>s+getTotal(a),0); }
+function getRate(mref){
   if(mref==='usd_cripto') return S.rates.cripto||S.rates.blue||1285;
   if(mref==='usd_mep')    return S.rates.mep   ||S.rates.blue||1260;
   if(mref==='usd_blue')   return S.rates.blue  ||1295;
   return S.rates[S.cfg.dolarType]||S.rates.blue||1290;
 }
-function getPrice(a) {
-  if(a.cryptoSymbol && S.cryptoPrices[a.cryptoSymbol.toUpperCase()])
-    return S.cryptoPrices[a.cryptoSymbol.toUpperCase()];
-  return a.precioManual||0;
-}
-function getTotal(a){ return a.cantidad * getPrice(a); }
-function getTotalUsd(){ return S.activos.reduce((s,a)=>s+getTotal(a),0); }
-function getByTipo(t){ return S.activos.filter(a=>a.tipo===t).reduce((s,a)=>s+getTotal(a),0); }
 function fusd(v){ return '$'+parseFloat(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
 function fusdS(v){ return '$'+Math.round(v).toLocaleString('en-US'); }
 function fars(v,mref){ return '$ '+Math.round(v*getRate(mref)).toLocaleString('es-AR'); }
 function pct(a,b){ return b?(a/b*100).toFixed(1)+'%':'0%'; }
 
-// ─── NAVIGATION ──────────────────────────────────
-function go(page) {
+// ── NAVIGATION ───────────────────────────────────────────────
+function go(page){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n=>{ n.classList.remove('active'); n.classList.add('text-on-surface-variant'); n.classList.remove('text-primary'); });
   document.getElementById('page-'+page).classList.add('active');
-  // sidebar
   document.querySelectorAll('.nav-item').forEach(n=>{
-    if((n.getAttribute('onclick')||'').includes(page)){
-      n.classList.add('active');
-      n.classList.remove('text-on-surface-variant');
-    }
+    if((n.getAttribute('onclick')||'').includes(`'${page}'`)){ n.classList.add('active'); n.classList.remove('text-on-surface-variant'); }
   });
-  // bottom nav
-  ['dashboard','activos','snapshots','config'].forEach(p=>{
-    const btn = document.getElementById('bn-'+p);
-    if(!btn) return;
-    if(p===page){ btn.classList.add('text-primary','bg-primary/10'); btn.classList.remove('text-on-surface-variant','opacity-60'); }
-    else { btn.classList.remove('text-primary','bg-primary/10'); btn.classList.add('text-on-surface-variant','opacity-60'); }
+  ['dashboard','activos','mercado','snapshots','config'].forEach(p=>{
+    const b=document.getElementById('bn-'+p);
+    if(!b)return;
+    if(p===page){b.classList.add('text-primary','bg-primary/10');b.classList.remove('text-on-surface-variant','opacity-60');}
+    else{b.classList.remove('text-primary','bg-primary/10');b.classList.add('text-on-surface-variant','opacity-60');}
   });
   if(page==='dashboard') renderDashboard();
   if(page==='activos')   renderActivos();
+  if(page==='mercado')   loadMercado();
   if(page==='snapshots') renderSnaps();
   if(page==='config')    renderConfig();
 }
 
-// ─── DASHBOARD ───────────────────────────────────
-function renderDashboard() {
-  const total=getTotalUsd(), crypto=getByTipo('crypto'), fondos=getByTipo('fondo'), acc=getByTipo('accion'), ef=getByTipo('efectivo');
+// ── DASHBOARD ────────────────────────────────────────────────
+function renderDashboard(){
+  const total=getTotalUsd(),crypto=getByTipo('crypto'),fondos=getByTipo('fondo'),acc=getByTipo('accion'),ef=getByTipo('efectivo');
   document.getElementById('m-total').textContent     = fusdS(total);
   document.getElementById('m-total-ars').textContent = '≈ '+fars(total,S.cfg.dolarType);
   document.getElementById('m-crypto').textContent    = fusdS(crypto);
@@ -731,160 +669,114 @@ function renderDashboard() {
   document.getElementById('m-fondos-p').textContent  = pct(fondos,total);
   document.getElementById('m-acc').textContent       = fusdS(acc);
   document.getElementById('m-acc-p').textContent     = pct(acc,total);
-  document.getElementById('pie-center-val').textContent = fusdS(total);
-  // Change badge
-  if(S.snapshots.length) {
-    const last = [...S.snapshots].sort((a,b)=>b.fecha.localeCompare(a.fecha))[0];
-    const diff = total - last.totalUsd;
-    const dp   = last.totalUsd?(diff/last.totalUsd*100).toFixed(1):0;
-    const el   = document.getElementById('m-chg-badge');
-    const icon = diff>=0 ? '<span class="material-symbols-outlined text-[14px]">trending_up</span>' : '<span class="material-symbols-outlined text-[14px]">trending_down</span>';
-    el.innerHTML = icon + ' '+(diff>=0?'+':'')+dp+'%';
-    el.className = 'font-bold text-xs flex items-center gap-0.5 ' + (diff>=0?'text-secondary':'text-error');
+  document.getElementById('pie-center').textContent  = fusdS(total);
+  if(S.snapshots.length){
+    const last=[...S.snapshots].sort((a,b)=>b.fecha.localeCompare(a.fecha))[0];
+    const diff=total-last.totalUsd;
+    const dp=last.totalUsd?(diff/last.totalUsd*100).toFixed(1):0;
+    const el=document.getElementById('m-chg-badge');
+    const ico=diff>=0?'<span class="material-symbols-outlined text-[14px]">trending_up</span>':'<span class="material-symbols-outlined text-[14px]">trending_down</span>';
+    el.innerHTML=ico+' '+(diff>=0?'+':'')+dp+'%';
+    el.className='font-bold text-xs flex items-center gap-0.5 '+(diff>=0?'text-secondary':'text-error');
   }
   // Table
-  const tb = document.getElementById('dash-tbody');
-  tb.innerHTML = '';
+  const tb=document.getElementById('dash-tbody');
+  tb.innerHTML='';
   S.activos.forEach(a=>{
-    const price=getPrice(a), tot=getTotal(a);
-    const isAuto=a.cryptoSymbol&&S.cryptoPrices[a.cryptoSymbol.toUpperCase()];
+    const price=getPrice(a),tot=getTotal(a),tag=getPriceTag(a);
+    const tagColor=tag==='manual'?'text-on-surface-variant':'text-secondary';
     const tr=document.createElement('tr');
-    tr.className='hover:bg-surface-container-low group';
+    tr.className='hover:bg-surface-container-low';
     tr.innerHTML=`
-      <td class="px-7 py-4">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-primary text-[18px]">${iconFor(a.tipo)}</span>
-          </div>
-          <div><p class="font-bold text-on-surface text-sm">${a.nombre}</p>
-          ${isAuto?'<p class="text-[10px] text-secondary font-semibold">Precio automático</p>':''}</div>
-        </div>
-      </td>
+      <td class="px-6 py-4"><div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary text-[18px]">${iconFor(a.tipo)}</span></div>
+        <div><p class="font-bold text-on-surface text-sm">${a.nombre}</p><p class="text-[10px] font-semibold ${tagColor}">${tag}</p></div>
+      </div></td>
       <td class="px-4 py-4">${tipoBadge(a.tipo)}</td>
       <td class="px-4 py-4 text-sm text-on-surface-variant">${a.plataforma}</td>
-      <td class="px-4 py-4 text-right"><p class="text-sm font-medium text-on-surface font-mono">${fusd(price)}</p></td>
-      <td class="px-4 py-4 text-right"><p class="text-sm font-bold text-on-surface font-mono">${fusd(tot)}</p></td>
-      <td class="px-7 py-4 text-right text-sm text-on-surface-variant font-mono">${fars(tot,a.monedaRef)}</td>`;
+      <td class="px-4 py-4 text-right text-sm font-mono text-on-surface">${fusd(price)}</td>
+      <td class="px-4 py-4 text-right text-sm font-bold font-mono text-on-surface">${fusd(tot)}</td>
+      <td class="px-6 py-4 text-right text-sm font-mono text-on-surface-variant">${fars(tot,a.monedaRef)}</td>`;
     tb.appendChild(tr);
   });
   renderCharts(total,crypto,fondos,acc,ef);
 }
-function iconFor(tipo){ return {crypto:'currency_bitcoin',fondo:'savings',accion:'candlestick_chart',efectivo:'payments'}[tipo]||'account_balance_wallet'; }
 
-function renderCharts(total,crypto,fondos,acc,ef) {
-  // PIE
+function renderCharts(total,crypto,fondos,acc,ef){
   const pd=[crypto,fondos,acc,ef];
-  const leg=document.getElementById('pie-legend');
-  leg.innerHTML=PIE_LABELS.map((l,i)=>`
+  document.getElementById('pie-legend').innerHTML=PIE_LABELS.map((l,i)=>`
     <li class="flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <div class="w-3 h-3 rounded-full" style="background:${PIE_COLORS[i]}"></div>
-        <span class="text-sm font-semibold text-on-surface">${l}</span>
-      </div>
+      <div class="flex items-center gap-2.5"><div class="w-3 h-3 rounded-full" style="background:${PIE_COLORS[i]}"></div><span class="text-sm font-semibold text-on-surface">${l}</span></div>
       <span class="text-sm font-bold text-on-surface-variant">${pct(pd[i],total)}</span>
     </li>`).join('');
   if(S.pieChart) S.pieChart.destroy();
   S.pieChart=new Chart(document.getElementById('pieChart'),{
     type:'doughnut',
-    data:{labels:PIE_LABELS,datasets:[{data:pd.map(v=>Math.round(v)),backgroundColor:PIE_COLORS,borderWidth:3,borderColor:'#ffffff'}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:'68%',
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${fusdS(c.parsed)}`}}}}
+    data:{labels:PIE_LABELS,datasets:[{data:pd.map(v=>Math.round(v)),backgroundColor:PIE_COLORS,borderWidth:3,borderColor:'#fff'}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${fusdS(c.parsed)}`}}}}
   });
-  // EVOLUTION
   const sorted=[...S.snapshots].sort((a,b)=>a.fecha.localeCompare(b.fecha));
-  const cur={fecha:new Date().toISOString().slice(0,10),nota:'Actual',totalUsd:Math.round(total)};
+  const cur={fecha:new Date().toISOString().slice(0,10),totalUsd:Math.round(total)};
   const all=[...sorted,cur];
   const labels=all.map(s=>{const d=new Date(s.fecha+'T12:00:00');return d.toLocaleDateString('es-AR',{month:'short',year:'2-digit'});});
-  let vals, tickFmt, ttFmt;
-  if(S.evolMode==='usd'){
-    vals=all.map(s=>Math.round(s.totalUsd));
-    tickFmt=v=>'$'+(v/1000).toFixed(0)+'k';
-    ttFmt=c=>` ${fusdS(c.parsed.y)}`;
-  } else if(S.evolMode==='blue'){
-    const r=S.rates.blue||1295;
-    vals=all.map(s=>Math.round(s.totalUsd*r));
-    tickFmt=v=>'$'+(v/1000000).toFixed(1)+'M';
-    ttFmt=c=>` $${Math.round(c.parsed.y).toLocaleString('es-AR')} Blue`;
-  } else {
-    const r=S.rates.mep||1260;
-    vals=all.map(s=>Math.round(s.totalUsd*r));
-    tickFmt=v=>'$'+(v/1000000).toFixed(1)+'M';
-    ttFmt=c=>` $${Math.round(c.parsed.y).toLocaleString('es-AR')} MEP`;
-  }
+  let vals,tickFmt,ttFmt;
+  if(S.evolMode==='usd'){vals=all.map(s=>Math.round(s.totalUsd));tickFmt=v=>'$'+(v/1000).toFixed(0)+'k';ttFmt=c=>` ${fusdS(c.parsed.y)}`;}
+  else if(S.evolMode==='blue'){const r=S.rates.blue||1295;vals=all.map(s=>Math.round(s.totalUsd*r));tickFmt=v=>'$'+(v/1000000).toFixed(1)+'M';ttFmt=c=>` $${Math.round(c.parsed.y).toLocaleString('es-AR')} Blue`;}
+  else{const r=S.rates.mep||1260;vals=all.map(s=>Math.round(s.totalUsd*r));tickFmt=v=>'$'+(v/1000000).toFixed(1)+'M';ttFmt=c=>` $${Math.round(c.parsed.y).toLocaleString('es-AR')} MEP`;}
   if(S.evolChart) S.evolChart.destroy();
   S.evolChart=new Chart(document.getElementById('evolChart'),{
     type:'line',
-    data:{labels,datasets:[{data:vals,borderColor:'#5d3ade',backgroundColor:'rgba(93,58,222,0.06)',
-      fill:true,tension:0.35,pointRadius:5,pointBackgroundColor:'#5d3ade',
-      pointBorderColor:'#ffffff',pointBorderWidth:2,borderWidth:2.5}]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:ttFmt}}},
-      scales:{
-        x:{grid:{color:'rgba(25,28,29,0.04)'},ticks:{color:'#797587',font:{size:11,family:'Inter'}}},
-        y:{grid:{color:'rgba(25,28,29,0.04)'},ticks:{color:'#797587',font:{size:11,family:'Inter'},callback:tickFmt}}
-      }
-    }
+    data:{labels,datasets:[{data:vals,borderColor:'#5d3ade',backgroundColor:'rgba(93,58,222,0.06)',fill:true,tension:0.35,pointRadius:5,pointBackgroundColor:'#5d3ade',pointBorderColor:'#fff',pointBorderWidth:2,borderWidth:2.5}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ttFmt}}},
+      scales:{x:{grid:{color:'rgba(25,28,29,0.04)'},ticks:{color:'#797587',font:{size:11}}},y:{grid:{color:'rgba(25,28,29,0.04)'},ticks:{color:'#797587',font:{size:11},callback:tickFmt}}}}
   });
 }
 function setEM(mode,el){
   S.evolMode=mode;
-  document.querySelectorAll('#evol-tabs button').forEach(b=>{
-    b.classList.remove('bg-primary-container','text-on-primary-container','shadow-sm');
-    b.classList.add('bg-surface-container','text-on-surface-variant');
-  });
+  document.querySelectorAll('#evol-tabs button').forEach(b=>{b.classList.remove('bg-primary-container','text-on-primary-container','shadow-sm');b.classList.add('bg-surface-container','text-on-surface-variant');});
   el.classList.add('bg-primary-container','text-on-primary-container','shadow-sm');
   el.classList.remove('bg-surface-container','text-on-surface-variant');
   renderDashboard();
 }
 
-// ─── ACTIVOS ──────────────────────────────────────
-function renderActivos() {
+// ── ACTIVOS ──────────────────────────────────────────────────
+function renderActivos(){
   const tb=document.getElementById('act-tbody');
   tb.innerHTML='';
-  if(!S.activos.length){
-    tb.innerHTML='<tr><td colspan="9" class="px-7 py-12 text-center text-on-surface-variant">Sin activos. Agregá el primero.</td></tr>';
-    return;
-  }
+  if(!S.activos.length){tb.innerHTML='<tr><td colspan="9" class="px-6 py-12 text-center text-on-surface-variant">Sin activos.</td></tr>';return;}
   S.activos.forEach(a=>{
-    const price=getPrice(a),tot=getTotal(a);
-    const isAuto=a.cryptoSymbol&&S.cryptoPrices[a.cryptoSymbol.toUpperCase()];
+    const price=getPrice(a),tot=getTotal(a),tag=getPriceTag(a);
+    const tagColor=tag==='manual'?'text-on-surface-variant':'text-secondary';
     const tr=document.createElement('tr');
     tr.className='hover:bg-surface-container-low';
     tr.innerHTML=`
-      <td class="px-7 py-4">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-primary text-[18px]">${iconFor(a.tipo)}</span>
-          </div>
-          <p class="font-bold text-on-surface text-sm">${a.nombre}</p>
-        </div>
-      </td>
+      <td class="px-6 py-4"><div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-primary-fixed flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary text-[18px]">${iconFor(a.tipo)}</span></div>
+        <p class="font-bold text-on-surface text-sm">${a.nombre}</p>
+      </div></td>
       <td class="px-4 py-4">${tipoBadge(a.tipo)}</td>
       <td class="px-4 py-4 text-sm text-on-surface-variant">${a.plataforma}</td>
       <td class="px-4 py-4">${mrefBadge(a.monedaRef)}</td>
-      <td class="px-4 py-4 text-right text-sm font-mono text-on-surface">${parseFloat(a.cantidad).toLocaleString('en-US',{maximumFractionDigits:8})}</td>
-      <td class="px-4 py-4 text-right">
-        <p class="text-sm font-mono text-on-surface">${fusd(price)}</p>
-        <p class="text-[10px] font-bold ${isAuto?'text-secondary':'text-on-surface-variant'}">${isAuto?'AUTO':'manual'}</p>
-      </td>
+      <td class="px-4 py-4 text-right text-sm font-mono">${parseFloat(a.cantidad).toLocaleString('en-US',{maximumFractionDigits:8})}</td>
+      <td class="px-4 py-4 text-right"><p class="text-sm font-mono text-on-surface">${fusd(price)}</p><p class="text-[10px] font-bold ${tagColor}">${tag}</p></td>
       <td class="px-4 py-4 text-right text-sm font-bold font-mono text-primary">${fusd(tot)}</td>
       <td class="px-4 py-4 text-right text-sm font-mono text-on-surface-variant">${fars(tot,a.monedaRef)}</td>
-      <td class="px-7 py-4 text-right">
-        <div class="flex gap-2 justify-end">
-          <button onclick="editAsset('${a.id}')" class="text-xs font-bold px-3 py-1.5 border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container transition-colors">Editar</button>
-          <button onclick="delAsset('${a.id}')" class="text-xs font-bold px-3 py-1.5 bg-error-container text-error rounded-full hover:opacity-90 transition-colors">Eliminar</button>
-        </div>
-      </td>`;
+      <td class="px-6 py-4 text-right"><div class="flex gap-2 justify-end">
+        <button onclick="editAsset('${a.id}')" class="text-xs font-bold px-3 py-1.5 border border-outline-variant rounded-full text-on-surface-variant hover:bg-surface-container">Editar</button>
+        <button onclick="delAsset('${a.id}')" class="text-xs font-bold px-3 py-1.5 bg-error-container text-error rounded-full">Eliminar</button>
+      </div></td>`;
     tb.appendChild(tr);
   });
 }
 function openAddAsset(){
   document.getElementById('mo-asset-title').textContent='Nuevo activo';
   document.getElementById('a-eid').value='';
-  ['a-nombre','a-plat','a-symbol','a-cant','a-precio'].forEach(i=>document.getElementById(i).value='');
+  ['a-nombre','a-plat','a-symbol','a-cant','a-precio','a-ticker','a-fci-nombre'].forEach(i=>document.getElementById(i).value='');
   document.getElementById('a-tipo').value='crypto';
   document.getElementById('a-mref').value='usd_cripto';
   document.getElementById('live-price-val').textContent='— escribí el símbolo';
+  document.getElementById('byma-price-val').textContent='— buscá el ticker';
+  document.getElementById('fci-results').innerHTML='';
   onTipoChange(); openModal('mo-asset');
 }
 function editAsset(id){
@@ -896,15 +788,22 @@ function editAsset(id){
   document.getElementById('a-tipo').value=a.tipo;
   document.getElementById('a-mref').value=a.monedaRef||'usd_blue';
   document.getElementById('a-symbol').value=a.cryptoSymbol||'';
+  document.getElementById('a-ticker').value=a.bymaSymbol||'';
+  document.getElementById('a-fci-nombre').value=a.fciNombre||'';
   document.getElementById('a-cant').value=a.cantidad;
   document.getElementById('a-precio').value=a.precioManual||'';
   const p=S.cryptoPrices[(a.cryptoSymbol||'').toUpperCase()];
-  document.getElementById('live-price-val').textContent=p?fusd(p):'— sin datos';
+  document.getElementById('live-price-val').textContent=p?fusd(p):'—';
+  const b=S.bymaCache[(a.bymaSymbol||'').toUpperCase()];
+  document.getElementById('byma-price-val').textContent=b?'$ '+Math.round(b.last).toLocaleString('es-AR')+' ARS':'—';
+  document.getElementById('fci-results').innerHTML='';
   onTipoChange(); openModal('mo-asset');
 }
 function onTipoChange(){
   const t=document.getElementById('a-tipo').value;
-  document.getElementById('crypto-section').style.display=t==='crypto'?'block':'none';
+  document.getElementById('crypto-section').classList.toggle('hidden', t!=='crypto');
+  document.getElementById('accion-section').classList.toggle('hidden', t!=='accion');
+  document.getElementById('fci-section').classList.toggle('hidden',   t!=='fondo');
   const mr=document.getElementById('a-mref');
   if(!document.getElementById('a-eid').value){
     if(t==='crypto')   mr.value='usd_cripto';
@@ -915,58 +814,175 @@ function onTipoChange(){
 }
 let symTo=null;
 document.getElementById('a-symbol').addEventListener('input',function(){
-  clearTimeout(symTo);
-  const sym=this.value.trim().toUpperCase();
+  clearTimeout(symTo);const sym=this.value.trim().toUpperCase();
   if(!sym){document.getElementById('live-price-val').textContent='— escribí el símbolo';return;}
   document.getElementById('live-price-val').innerHTML='<span class="pulse">buscando...</span>';
-  symTo=setTimeout(async()=>{
-    await fetchCryptoPrice(sym.toLowerCase());
-    const p=S.cryptoPrices[sym];
-    document.getElementById('live-price-val').textContent=p?fusd(p):'no encontrado';
-  },700);
+  symTo=setTimeout(async()=>{await fetchCryptoPrice(sym.toLowerCase());const p=S.cryptoPrices[sym];document.getElementById('live-price-val').textContent=p?fusd(p):'no encontrado';},700);
 });
+async function lookupTicker(){
+  const ticker=document.getElementById('a-ticker').value.trim().toUpperCase();
+  if(!ticker)return;
+  document.getElementById('byma-price-val').innerHTML='<span class="pulse">buscando...</span>';
+  try{
+    const d=await asGet('getCotizacion','&ticker='+ticker);
+    if(d&&d.last){
+      S.bymaCache[ticker]=d;
+      document.getElementById('byma-price-val').textContent='$ '+Math.round(d.last).toLocaleString('es-AR')+' ARS ('+d.source+')';
+    } else document.getElementById('byma-price-val').textContent='no encontrado';
+  }catch(e){document.getElementById('byma-price-val').textContent='error de conexión';}
+}
+async function lookupFCI(){
+  const nombre=document.getElementById('a-fci-nombre').value.trim();
+  if(!nombre)return;
+  const cont=document.getElementById('fci-results');
+  cont.innerHTML='<span class="text-xs text-on-surface-variant pulse">buscando…</span>';
+  try{
+    let list=S.fciCache;
+    if(!list.length){list=await asGet('getFCI');if(Array.isArray(list))S.fciCache=list;}
+    const results=(Array.isArray(list)?list:[]).filter(f=>f.fondo&&f.fondo.toLowerCase().includes(nombre.toLowerCase())).slice(0,6);
+    if(!results.length){cont.innerHTML='<p class="text-xs text-on-surface-variant">Sin resultados</p>';return;}
+    cont.innerHTML=results.map(f=>`
+      <button onclick="selectFCI('${f.fondo.replace(/'/g,"\\'")}')" class="w-full text-left px-3 py-2 bg-surface-container-low rounded-lg text-xs hover:bg-secondary-fixed/30 transition-colors">
+        <span class="font-semibold text-on-surface">${f.fondo}</span>
+        <span class="text-on-surface-variant ml-2">${f.administradora||''}</span>
+        <span class="float-right text-secondary font-bold">VCN: ${f.vcn?'$'+parseFloat(f.vcn).toLocaleString('es-AR',{maximumFractionDigits:4}):'-'}</span>
+      </button>`).join('');
+  }catch(e){cont.innerHTML='<p class="text-xs text-error">Error: requiere Apps Script configurado</p>';}
+}
+function selectFCI(nombre){
+  document.getElementById('a-fci-nombre').value=nombre;
+  document.getElementById('a-nombre').value=nombre;
+  document.getElementById('fci-results').innerHTML=`<p class="text-xs text-secondary font-semibold">✓ Seleccionado: ${nombre}</p>`;
+}
 function saveAsset(){
   const nombre=document.getElementById('a-nombre').value.trim();
   const plat=document.getElementById('a-plat').value.trim();
   const tipo=document.getElementById('a-tipo').value;
   const mref=document.getElementById('a-mref').value;
   const symbol=document.getElementById('a-symbol').value.trim().toUpperCase();
+  const ticker=document.getElementById('a-ticker').value.trim().toUpperCase();
+  const fciNombre=document.getElementById('a-fci-nombre').value.trim();
   const cant=parseFloat(document.getElementById('a-cant').value);
   const precio=parseFloat(document.getElementById('a-precio').value)||null;
   if(!nombre||isNaN(cant)){toast('Completá nombre y cantidad','err');return;}
-  if(tipo==='crypto'&&!symbol&&!precio){toast('Ingresá símbolo o precio manual','err');return;}
   const eid=document.getElementById('a-eid').value;
-  const obj={nombre,plataforma:plat,tipo,monedaRef:mref,cantidad:cant,precioManual:precio,cryptoSymbol:tipo==='crypto'?symbol:''};
+  const obj={nombre,plataforma:plat,tipo,monedaRef:mref,cantidad:cant,precioManual:precio,
+    cryptoSymbol:tipo==='crypto'?symbol:'',
+    bymaSymbol:tipo==='accion'?ticker:'',
+    fciNombre:tipo==='fondo'?fciNombre:''};
   if(eid){const i=S.activos.findIndex(a=>a.id===eid);if(i!==-1)S.activos[i]={id:eid,...obj};}
   else S.activos.push({id:uid(),...obj});
-  saveLocal();closeModal('mo-asset');renderActivos();renderDashboard();
+  persistActivo(S.activos.find(a=>a.nombre===nombre)||obj);
+  closeModal('mo-asset'); renderActivos(); renderDashboard();
   toast(eid?'Activo actualizado ✓':'Activo agregado ✓','ok');
 }
-function delAsset(id){S.activos=S.activos.filter(a=>a.id!==id);saveLocal();renderActivos();renderDashboard();toast('Activo eliminado','ok');}
+async function delAsset(id){
+  await removeActivo(id); renderActivos(); renderDashboard(); toast('Activo eliminado','ok');
+}
 
-// ─── SNAPSHOTS ─────────────────────────────────
+// ── MERCADO ──────────────────────────────────────────────────
+let mercadoTab='cedears';
+function setMercadoTab(tab,el){
+  mercadoTab=tab;
+  ['cedears','acciones','fci'].forEach(t=>{
+    const b=document.getElementById('mt-'+t);
+    if(t===tab){b.classList.add('bg-primary-container','text-on-primary-container','shadow-sm');b.classList.remove('bg-surface-container','text-on-surface-variant');}
+    else{b.classList.remove('bg-primary-container','text-on-primary-container','shadow-sm');b.classList.add('bg-surface-container','text-on-surface-variant');}
+  });
+  document.getElementById('mercado-search').value='';
+  renderMercadoTable();
+}
+async function loadMercado(){
+  if(!S.cfg.asUrl){document.getElementById('mercado-body').innerHTML='<div class="p-8 text-center text-on-surface-variant text-sm">Configurá la URL de Apps Script en Config.</div>';return;}
+  document.getElementById('mercado-body').innerHTML='<div class="p-8 text-center text-on-surface-variant"><span class="material-symbols-outlined text-3xl block spin mb-2">sync</span>Cargando via Apps Script…</div>';
+  document.getElementById('refresh-icon').classList.add('spin');
+  try{
+    const [cedears,acciones,fci]=await Promise.all([asGet('getCedears'),asGet('getAcciones'),asGet('getFCI')]);
+    if(Array.isArray(cedears))  S.mercadoData.cedears  = cedears;
+    if(Array.isArray(acciones)) S.mercadoData.acciones = acciones;
+    if(Array.isArray(fci))      S.mercadoData.fci      = fci;
+  }catch(e){
+    document.getElementById('mercado-body').innerHTML='<div class="p-8 text-center text-error text-sm">Error al conectar con Apps Script. Verificá la URL en Config.</div>';
+  }
+  document.getElementById('refresh-icon').classList.remove('spin');
+  renderMercadoTable();
+}
+function refreshMercado(){ loadMercado(); }
+function filterMercado(){ renderMercadoTable(); }
+function renderMercadoTable(){
+  const q=document.getElementById('mercado-search').value.toLowerCase();
+  const body=document.getElementById('mercado-body');
+  const tab=mercadoTab;
+
+  if(tab==='fci'){
+    let data=S.mercadoData.fci.filter(f=>f.fondo&&(!q||f.fondo.toLowerCase().includes(q)||(f.administradora||'').toLowerCase().includes(q)));
+    document.getElementById('mercado-count').textContent=data.length+' fondos';
+    if(!data.length){body.innerHTML='<div class="p-8 text-center text-on-surface-variant text-sm">Sin datos. Cargá el mercado primero.</div>';return;}
+    body.innerHTML=`<table class="w-full text-left"><thead><tr class="bg-surface-container-low/50">
+      <th class="px-5 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Fondo</th>
+      <th class="px-4 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Admin</th>
+      <th class="px-4 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">VCN</th>
+      <th class="px-5 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Rend. 7d</th>
+    </tr></thead><tbody class="divide-y divide-outline-variant/10">`+
+    data.slice(0,200).map(f=>{
+      const r7=parseFloat(f.rend7)||0;
+      const rClass=r7>=0?'text-secondary':'text-error';
+      return `<tr class="hover:bg-surface-container-low">
+        <td class="px-5 py-3 text-sm font-semibold text-on-surface">${f.fondo||'—'}</td>
+        <td class="px-4 py-3 text-xs text-on-surface-variant">${f.administradora||'—'}</td>
+        <td class="px-4 py-3 text-right font-mono text-sm font-bold text-on-surface">${f.vcn?'$'+parseFloat(f.vcn).toLocaleString('es-AR',{maximumFractionDigits:4}):'-'}</td>
+        <td class="px-5 py-3 text-right font-mono text-sm font-bold ${rClass}">${r7?((r7>=0?'+':'')+r7.toFixed(2)+'%'):'-'}</td>
+      </tr>`;
+    }).join('')+'</tbody></table>';
+    return;
+  }
+
+  const list=tab==='cedears'?S.mercadoData.cedears:S.mercadoData.acciones;
+  let data=list.filter(i=>i.symbol&&(!q||i.symbol.toLowerCase().includes(q)));
+  document.getElementById('mercado-count').textContent=data.length+' instrumentos';
+  if(!data.length){body.innerHTML='<div class="p-8 text-center text-on-surface-variant text-sm">Sin datos. Cargá el mercado primero.</div>';return;}
+  body.innerHTML=`<table class="w-full text-left"><thead><tr class="bg-surface-container-low/50">
+    <th class="px-5 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider">Ticker</th>
+    <th class="px-4 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Último (ARS)</th>
+    <th class="px-5 py-3 text-[10px] font-bold text-on-surface-variant uppercase tracking-wider text-right">Var %</th>
+  </tr></thead><tbody class="divide-y divide-outline-variant/10">`+
+  data.slice(0,300).map(i=>{
+    const chg=parseFloat(i.change)||0;
+    const cClass=chg>=0?'text-secondary':'text-error';
+    const cIcon=chg>=0?'north_east':'south_east';
+    return `<tr class="hover:bg-surface-container-low">
+      <td class="px-5 py-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-primary-fixed flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary text-[15px]">candlestick_chart</span></div>
+          <span class="text-sm font-bold text-on-surface">${i.symbol}</span>
+        </div>
+      </td>
+      <td class="px-4 py-3 text-right font-mono text-sm font-bold text-on-surface">$ ${Math.round(i.last).toLocaleString('es-AR')}</td>
+      <td class="px-5 py-3 text-right font-mono text-sm font-bold ${cClass} flex items-center justify-end gap-0.5">
+        <span class="material-symbols-outlined text-[14px]">${cIcon}</span>${chg>=0?'+':''}${chg.toFixed(2)}%
+      </td>
+    </tr>`;
+  }).join('')+'</tbody></table>';
+}
+
+// ── SNAPSHOTS ────────────────────────────────────────────────
 function renderSnaps(){
   const c=document.getElementById('snaps-list');
-  if(!S.snapshots.length){c.innerHTML='<div class="p-12 text-center text-on-surface-variant"><span class="material-symbols-outlined text-5xl mb-3 block text-outline-variant">bar_chart</span><p class="font-medium">Guardá tu primer snapshot para ver la evolución.</p></div>';return;}
+  if(!S.snapshots.length){c.innerHTML='<div class="p-12 text-center text-on-surface-variant"><span class="material-symbols-outlined text-5xl mb-3 block text-outline-variant">bar_chart</span><p class="font-medium">Guardá tu primer snapshot.</p></div>';return;}
   const sorted=[...S.snapshots].sort((a,b)=>b.fecha.localeCompare(a.fecha));
   c.innerHTML=sorted.map((s,i)=>{
     const prev=sorted[i+1];
     const diff=prev?s.totalUsd-prev.totalUsd:null;
-    const diffHtml=diff!==null
-      ?`<span class="${diff>=0?'text-secondary':'text-error'} font-bold">${diff>=0?'+':''}${fusdS(diff)} (${diff>=0?'+':''}${(diff/prev.totalUsd*100).toFixed(1)}%)</span>`
-      :'<span class="text-on-surface-variant">primer registro</span>';
-    return `<div class="flex items-center justify-between px-7 py-5 border-b border-outline-variant/10 last:border-0 hover:bg-surface-container-low transition-colors">
+    const diffHtml=diff!==null?`<span class="${diff>=0?'text-secondary':'text-error'} font-bold">${diff>=0?'+':''}${fusdS(diff)} (${diff>=0?'+':''}${(diff/prev.totalUsd*100).toFixed(1)}%)</span>`:'<span class="text-on-surface-variant">primer registro</span>';
+    return `<div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 last:border-0 hover:bg-surface-container-low">
       <div>
         <p class="font-bold text-on-surface">${new Date(s.fecha+'T12:00:00').toLocaleDateString('es-AR',{day:'numeric',month:'long',year:'numeric'})}</p>
         ${s.nota?`<p class="text-xs text-on-surface-variant mt-0.5">${s.nota}</p>`:''}
         <p class="text-xs text-on-surface-variant mt-1">vs anterior: ${diffHtml}</p>
       </div>
-      <div class="flex items-center gap-5">
-        <div class="text-right">
-          <p class="font-headline font-bold text-primary">${fusdS(s.totalUsd)}</p>
-          <p class="text-xs text-on-surface-variant font-mono">${fars(s.totalUsd,S.cfg.dolarType)}</p>
-        </div>
-        <button onclick="delSnap('${s.id}')" class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center hover:opacity-90 transition-opacity">
+      <div class="flex items-center gap-4">
+        <div class="text-right"><p class="font-headline font-bold text-primary">${fusdS(s.totalUsd)}</p><p class="text-xs text-on-surface-variant font-mono">${fars(s.totalUsd,S.cfg.dolarType)}</p></div>
+        <button onclick="delSnap('${s.id}')" class="w-8 h-8 rounded-full bg-error-container flex items-center justify-center hover:opacity-90">
           <span class="material-symbols-outlined text-error text-[16px]">close</span>
         </button>
       </div>
@@ -979,18 +995,20 @@ function openSnapModal(){
   document.getElementById('sn-preview').textContent=fusdS(getTotalUsd());
   openModal('mo-snap');
 }
-function saveSnap(){
+async function saveSnap(){
   const fecha=document.getElementById('sn-fecha').value;
   const nota=document.getElementById('sn-nota').value.trim();
   if(!fecha){toast('Seleccioná una fecha','err');return;}
-  S.snapshots.push({id:uid(),fecha,nota,totalUsd:Math.round(getTotalUsd())});
+  const snap={id:uid(),fecha,nota,totalUsd:Math.round(getTotalUsd())};
+  S.snapshots.push(snap);
   S.snapshots.sort((a,b)=>a.fecha.localeCompare(b.fecha));
-  saveLocal();closeModal('mo-snap');renderSnaps();renderDashboard();
+  await persistSnap(snap);
+  closeModal('mo-snap'); renderSnaps(); renderDashboard();
   toast('Snapshot guardado ✓','ok');
 }
-function delSnap(id){S.snapshots=S.snapshots.filter(s=>s.id!==id);saveLocal();renderSnaps();renderDashboard();toast('Snapshot eliminado','ok');}
+async function delSnap(id){ await removeSnap(id); renderSnaps(); renderDashboard(); toast('Snapshot eliminado','ok'); }
 
-// ─── CONFIG ────────────────────────────────────
+// ── CONFIG ────────────────────────────────────────────────────
 function renderConfig(){
   document.getElementById('cfg-dolar').value  = S.cfg.dolarType;
   document.getElementById('cfg-source').value = S.cfg.source;
@@ -998,117 +1016,69 @@ function renderConfig(){
   renderGsCode();
 }
 function saveCfg(){
-  S.cfg.dolarType=document.getElementById('cfg-dolar').value;
-  S.cfg.source   =document.getElementById('cfg-source').value;
-  S.cfg.asUrl    =document.getElementById('cfg-as-url').value.trim();
-  saveLocal();toast('Configuración guardada ✓','ok');
+  S.cfg.dolarType = document.getElementById('cfg-dolar').value;
+  S.cfg.source    = document.getElementById('cfg-source').value;
+  S.cfg.asUrl     = document.getElementById('cfg-as-url').value.trim()||DEFAULT_AS_URL;
+  saveLocal(); toast('Configuración guardada ✓','ok');
+  if(S.cfg.source==='sheets') syncFromSheets();
+}
+async function testConnection(){
+  const res=document.getElementById('conn-result');
+  res.classList.remove('hidden');
+  res.textContent='Probando…';
+  try{
+    const d=await asGet('getActivos');
+    if(Array.isArray(d)) res.textContent='✓ Conexión exitosa — '+d.length+' activos en Sheets';
+    else res.textContent='✗ Respuesta inesperada: '+JSON.stringify(d).slice(0,60);
+  }catch(e){res.textContent='✗ Error: '+e.message;}
 }
 function exportData(){
   const b=new Blob([JSON.stringify({activos:S.activos,snapshots:S.snapshots},null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='fintrack-backup.json';a.click();
 }
-function clearAll(){
-  if(!confirm('¿Borrar todos los datos locales?'))return;
-  S.activos=[];S.snapshots=[];saveLocal();renderDashboard();toast('Datos borrados','err');
-}
-function copyGS(){
-  navigator.clipboard.writeText(document.getElementById('gs-code').textContent);
-  toast('Código copiado ✓','ok');
-}
+function clearAll(){if(!confirm('¿Borrar todos los datos locales?'))return;S.activos=[];S.snapshots=[];saveLocal();renderDashboard();toast('Datos borrados','err');}
+function copyGS(){navigator.clipboard.writeText(document.getElementById('gs-code').textContent);toast('Código copiado ✓','ok');}
 function renderGsCode(){
-  document.getElementById('gs-code').textContent=`// FinTrack — Apps Script Backend
-// Deploy: Implementar > Nueva implementación > App web
-// Ejecutar como: Yo | Acceso: Cualquier persona
+  // Mostrar el código del Code.gs (versión resumida para display)
+  document.getElementById('gs-code').textContent=`// Ver archivo Code.gs adjunto para el código completo
+// Endpoints disponibles:
 
-function doGet(e) {
-  const action = e.parameter.action;
-  if (action === 'getActivos')   return json(getSheet('Activos'));
-  if (action === 'getSnapshots') return json(getSheet('Snapshots'));
-  return json({ error: 'Acción no reconocida' });
+// GET ?action=getActivos       → lee hoja "Activos"
+// GET ?action=getSnapshots     → lee hoja "Snapshots"
+// GET ?action=getCedears        → proxy Open BYMA (CEDEARs)
+// GET ?action=getAcciones       → proxy Open BYMA (acciones AR)
+// GET ?action=getFCI            → proxy CriptoYa (FCI)
+// GET ?action=getCotizacion&ticker=GLOB → busca ticker en BYMA
+
+// POST { action:'saveActivo',   data:{...} }
+// POST { action:'deleteActivo', id:'...' }
+// POST { action:'saveSnapshot', data:{...} }
+// POST { action:'deleteSnapshot', id:'...' }
+
+// URL configurada:
+// ${S.cfg.asUrl||DEFAULT_AS_URL}`;
 }
 
-function doPost(e) {
-  const body   = JSON.parse(e.postData.contents);
-  if (body.action === 'saveActivo')     return json(upsertRow('Activos', body.data));
-  if (body.action === 'deleteActivo')   return json(deleteRow('Activos', body.id));
-  if (body.action === 'saveSnapshot')   return json(appendRow('Snapshots', body.data));
-  if (body.action === 'deleteSnapshot') return json(deleteRow('Snapshots', body.id));
-  return json({ error: 'Acción no reconocida' });
-}
-
-function getSheet(name) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sh = ss.getSheetByName(name);
-  const rows = sh.getDataRange().getValues();
-  const headers = rows[0];
-  return rows.slice(1).map(r => {
-    const obj = {};
-    headers.forEach((h, i) => obj[h] = r[i]);
-    return obj;
-  });
-}
-
-function upsertRow(name, data) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sh = ss.getSheetByName(name);
-  const rows = sh.getDataRange().getValues();
-  const headers = rows[0];
-  const col = headers.indexOf('id');
-  for (let i = 1; i < rows.length; i++) {
-    if (rows[i][col] === data.id) {
-      sh.getRange(i + 1, 1, 1, headers.length).setValues([headers.map(h => data[h] ?? '')]);
-      return { ok: true, action: 'updated' };
-    }
-  }
-  sh.appendRow(headers.map(h => data[h] ?? ''));
-  return { ok: true, action: 'inserted' };
-}
-
-function appendRow(name, data) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sh = ss.getSheetByName(name);
-  const headers = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0];
-  sh.appendRow(headers.map(h => data[h] ?? ''));
-  return { ok: true };
-}
-
-function deleteRow(name, id) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sh = ss.getSheetByName(name);
-  const rows = sh.getDataRange().getValues();
-  const col = rows[0].indexOf('id');
-  for (let i = rows.length - 1; i >= 1; i--) {
-    if (rows[i][col] === id) { sh.deleteRow(i + 1); return { ok: true }; }
-  }
-  return { ok: false };
-}
-
-function json(data) {
-  return ContentService.createTextOutput(JSON.stringify(data))
-    .setMimeType(ContentService.MimeType.JSON);
-}`.trim();
-}
-
-// ─── MODAL + TOAST ────────────────────────────
+// ── MODAL + TOAST ─────────────────────────────────────────────
 function openModal(id){document.getElementById(id).classList.add('open');}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)m.classList.remove('open');}));
 function toast(msg,type='ok'){
   const el=document.getElementById('toast');
-  const isOk=type==='ok';
-  el.className=`toast show flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium shadow-lg border ${isOk?'bg-surface-container-lowest border-secondary/20 text-on-surface':'bg-surface-container-lowest border-error/20 text-error'}`;
-  el.innerHTML=`<span class="material-symbols-outlined text-[18px] ${isOk?'text-secondary':'text-error'}">${isOk?'check_circle':'error'}</span>${msg}`;
+  const ok=type==='ok';
+  el.className=`toast show flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-medium shadow-lg border ${ok?'bg-surface-container-lowest border-secondary/20 text-on-surface':'bg-surface-container-lowest border-error/20 text-error'}`;
+  el.innerHTML=`<span class="material-symbols-outlined text-[18px] ${ok?'text-secondary':'text-error'}">${ok?'check_circle':'error'}</span>${msg}`;
   setTimeout(()=>el.classList.remove('show'),2800);
 }
-function toggleSidebar(){
-  const s=document.getElementById('sidebar');
-  s.classList.toggle('hidden');
-  s.classList.toggle('flex');
-}
+function toggleSidebar(){const s=document.getElementById('sidebar');s.classList.toggle('hidden');s.classList.toggle('flex');}
 
-// ─── INIT ──────────────────────────────────────
+// ── INIT ──────────────────────────────────────────────────────
 loadLocal();
-fetchRates();
+setSheetStatus('loading');
+fetchRates().then(()=>{
+  if(S.cfg.source==='sheets') syncFromSheets();
+  else setSheetStatus('ok');
+});
 </script>
 </body>
 </html>
